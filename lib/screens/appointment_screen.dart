@@ -51,6 +51,94 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
         // print(uID);
         // print(_clinicid);
         _selectedDate = DateFormat('yyyy-MM-dd').format(DateTime.now());
+        final dayNumber = DateTime.now().weekday;
+
+        if (dayNumber == 1) {
+          print('Monday');
+          if (_data['clinicData']['mondaystatus'] == 'off') {
+            setState(() {
+              _infoText = 'Doctor is not available for today';
+            });
+          } else {
+            setState(() {
+              _infoText = '';
+            });
+          }
+        }
+        if (dayNumber == 2) {
+          print('Tuesday');
+          if (_data['clinicData']['tuesdaystatus'] == 'off') {
+            setState(() {
+              _infoText = 'Doctor is not available for today';
+            });
+          } else {
+            setState(() {
+              _infoText = '';
+            });
+          }
+        }
+
+        if (dayNumber == 3) {
+          print('Wednesday');
+          if (_data['clinicData']['wednesdaystatus'] == 'off') {
+            setState(() {
+              _infoText = 'Doctor is not available for today';
+            });
+          } else {
+            setState(() {
+              _infoText = '';
+            });
+          }
+        }
+
+        if (dayNumber == 4) {
+          print('Thursday');
+          if (_data['clinicData']['thursdaystatus'] == 'off') {
+            setState(() {
+              _infoText = 'Doctor is not available for today';
+            });
+          } else {
+            setState(() {
+              _infoText = '';
+            });
+          }
+        }
+        if (dayNumber == 5) {
+          print('Friday');
+          if (_data['clinicData']['fridaystatus'] == 'off') {
+            setState(() {
+              _infoText = 'Doctor is not available for today';
+            });
+          } else {
+            setState(() {
+              _infoText = '';
+            });
+          }
+        }
+        if (dayNumber == 6) {
+          print('Saturday');
+          if (_data['clinicData']['saturdaystatus'] == 'off') {
+            setState(() {
+              _infoText = 'Doctor is not available for today';
+            });
+          } else {
+            setState(() {
+              _infoText = '';
+            });
+          }
+        }
+        if (dayNumber == 7) {
+          print('Sunday');
+          if (_data['clinicData']['sundaystatus'] == 'off') {
+            setState(() {
+              _infoText = 'Doctor is not available for today';
+            });
+          } else {
+            setState(() {
+              _infoText = '';
+            });
+          }
+        }
         print(' date.now:{$_selectedValue}');
       });
       await getClinic();
@@ -199,12 +287,14 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
                     ],
                     onDateChange: (date) {
                       // New date selected
+                      print(date);
                       setState(() {
                         _selectedDate =
                             DateFormat('yyyy-MM-dd').format(date) == null
                                 ? _selectedValue
                                 : DateFormat('yyyy-MM-dd').format(date);
                         if (date.weekday == 1) {
+                          print('Monday');
                           if (_data['clinicData']['mondaystatus'] == 'off') {
                             setState(() {
                               _infoText = 'Doctor is not available for today';
@@ -216,66 +306,76 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
                           }
                         }
                         if (date.weekday == 2) {
+                          print('Tuesday');
                           if (_data['clinicData']['tuesdaystatus'] == 'off') {
                             setState(() {
                               _infoText = 'Doctor is not available for today';
                             });
-                            if (date.weekday == 3) {
-                              if (_data['clinicData']['wednesdaystatus'] ==
-                                  'off') {
-                                setState(() {
-                                  print('no');
-                                  _infoText =
-                                      'Doctor is not available for today';
-                                });
-                              }
-                            }
-                          }
-                          if (date.weekday == 4) {
-                            if (_data['clinicData']['thursdaystatus'] ==
-                                'off') {
-                              setState(() {
-                                _infoText = 'Doctor is not available for today';
-                              });
-                            }
-                          }
-                          if (date.weekday == 5) {
-                            if (_data['clinicData']['fridaystatus'] == 'off') {
-                              setState(() {
-                                _infoText = 'Doctor is not available for today';
-                              });
-                            }
-                          }
-                          print('Week Day : ${date.weekday}');
-                          if (date.weekday == 6) {
-                            print('Here 1');
-                            if (_data['clinicData']['saturdaystatus'] ==
-                                'off') {
-                              print('Here 2');
-                              setState(() {
-                                print('Here 3');
-                                _infoText = 'Doctor is not available for today';
-                                print('Finally : $_infoText');
-                              });
-                            }
-                          }
-                          if (date.weekday == 7) {
-                            if (_data['clinicData']['sundaystatus'] == 'off') {
-                              setState(() {
-                                _infoText = 'Doctor is not available for today';
-                              });
-                            }
-                          }
-                          if (date.weekday == 1) {
-                            if (_doctors[0]['mondaystatus'] == 'off') {
-                              setState(() {
-                                _infoText = 'Doctor is not available for today';
-                              });
-                            }
                           } else {
                             setState(() {
                               _infoText = '';
-                              print(_infoText);
+                            });
+                          }
+                        }
+
+                        if (date.weekday == 3) {
+                          print('Wednesday');
+                          if (_data['clinicData']['wednesdaystatus'] == 'off') {
+                            setState(() {
+                              _infoText = 'Doctor is not available for today';
+                            });
+                          } else {
+                            setState(() {
+                              _infoText = '';
+                            });
+                          }
+                        }
+
+                        if (date.weekday == 4) {
+                          print('Thursday');
+                          if (_data['clinicData']['thursdaystatus'] == 'off') {
+                            setState(() {
+                              _infoText = 'Doctor is not available for today';
+                            });
+                          } else {
+                            setState(() {
+                              _infoText = '';
+                            });
+                          }
+                        }
+                        if (date.weekday == 5) {
+                          print('Friday');
+                          if (_data['clinicData']['fridaystatus'] == 'off') {
+                            setState(() {
+                              _infoText = 'Doctor is not available for today';
+                            });
+                          } else {
+                            setState(() {
+                              _infoText = '';
+                            });
+                          }
+                        }
+                        if (date.weekday == 6) {
+                          print('Saturday');
+                          if (_data['clinicData']['saturdaystatus'] == 'off') {
+                            setState(() {
+                              _infoText = 'Doctor is not available for today';
+                            });
+                          } else {
+                            setState(() {
+                              _infoText = '';
+                            });
+                          }
+                        }
+                        if (date.weekday == 7) {
+                          print('Sunday');
+                          if (_data['clinicData']['sundaystatus'] == 'off') {
+                            setState(() {
+                              _infoText = 'Doctor is not available for today';
+                            });
+                          } else {
+                            setState(() {
+                              _infoText = '';
                             });
                           }
                         }

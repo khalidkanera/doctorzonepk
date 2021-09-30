@@ -1,5 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
+import 'package:intl/intl.dart';
+
 import '../screens/services_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -138,6 +140,25 @@ class _PendingAppointmentScreenState extends State<PendingAppointmentScreen> {
     });
   }
 
+  Future getallpendingappointments() async {
+    _isloading = true;
+    final response = await http
+        .post(appointmenturl, body: {'puid': id, 'status': 'pending'});
+    if (response.statusCode == 200) {
+      print('cancellappointment');
+      _data = jsonDecode(response.body);
+      print('complete:$_data');
+      setState(() {
+        _isloading = false;
+      });
+      return _data;
+    }
+
+    setState(() {
+      _isloading = false;
+    });
+  }
+
   Future getconfirmedappointment() async {
     _isloading = true;
     final response = await http
@@ -207,12 +228,12 @@ class _PendingAppointmentScreenState extends State<PendingAppointmentScreen> {
                             setState(() {
                               _data = '';
                             });
-                            await getcomletedappointment();
+                            await getallpendingappointments();
                             // Navigator.of(context)
                             //     .pushNamed(PendingAppointmentScreen.routeName);
                           },
                           child: Text(
-                            'Completed',
+                            'All pending',
                             style: TextStyle(
                                 fontSize: 15,
                                 fontWeight: FontWeight.bold,
@@ -289,7 +310,6 @@ class _PendingAppointmentScreenState extends State<PendingAppointmentScreen> {
                                                 _data['server_data'][index]
                                                     ['doctorName'],
                                             overflow: TextOverflow.clip,
-                                            textDirection: TextDirection.ltr,
                                             maxLines: 2,
                                             softWrap: true,
                                             style: TextStyle(
@@ -319,109 +339,319 @@ class _PendingAppointmentScreenState extends State<PendingAppointmentScreen> {
                                         )
                                       ],
                                     ),
-                                    Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
-                                      mainAxisSize: MainAxisSize.min,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Row(
-                                          children: [
-                                            Icon(
-                                              Icons.flag,
-                                              size: 35,
-                                              color: Colors.black,
-                                            ),
-                                            Padding(
-                                              padding: const EdgeInsets.only(
-                                                  left: 10),
-                                              child: Text(
-                                                _data['server_data'][index]
-                                                    ['status'],
-                                                style: TextStyle(
-                                                    fontSize: 18,
-                                                    fontWeight: FontWeight.bold,
-                                                    color: _data['server_data']
-                                                                    [index]
-                                                                ['status'] ==
-                                                            'pending'
-                                                        ? Colors.yellow.shade800
-                                                        : _data['server_data']
-                                                                        [index][
-                                                                    'status'] ==
-                                                                'confirm'
-                                                            ? Colors.green
-                                                            : _data['server_data']
-                                                                            [
-                                                                            index]
-                                                                        [
-                                                                        'status'] ==
-                                                                    'complete'
-                                                                ? Colors.blue
-                                                                : Colors.red
-                                                                    .shade300),
+                                    Container(
+                                      padding: EdgeInsets.only(left: 5),
+                                      //margin: EdgeInsets.all(1),
+                                      child: DataTable(
+                                        horizontalMargin: 0,
+                                        dividerThickness: 0,
+                                        columns: <DataColumn>[
+                                          DataColumn(
+                                            label: Text(''),
+                                          ),
+                                          DataColumn(
+                                            label: Text(''),
+                                          ),
+                                        ],
+                                        rows: <DataRow>[
+                                          DataRow(
+                                            cells: [
+                                              DataCell(
+                                                Icon(
+                                                  Icons.flag,
+                                                  size: 35,
+                                                  color: Colors.black54,
+                                                ),
+                                                //         Padding(
+                                                //           padding: const EdgeInsets.only(
+                                                //               left: 10),
+                                                //           child: Text(
+                                                //             _data['server_data'][index]
+                                                //                 ['status'],
+                                                //             style: TextStyle(
+                                                //                 fontSize: 18,
+                                                //                 fontWeight: FontWeight.bold,
+                                                //                 color: _data['server_data']
+                                                //                                 [index]
+                                                //                             ['status'] ==
+                                                //                         'pending'
+                                                //                     ? Colors.yellow.shade800
+                                                //                     : _data['server_data']
+                                                //                                     [index][
+                                                //                                 'status'] ==
+                                                //                             'confirm'
+                                                //                         ? Colors.green
+                                                //                         : _data['server_data']
+                                                //                                         [
+                                                //                                         index]
+                                                //                                     [
+                                                //                                     'status'] ==
+                                                //                                 'complete'
+                                                //                             ? Colors.blue
+                                                //                             : Colors.red
+                                                //                                 .shade300),
+                                                //           ),
+                                                //         ),
                                               ),
-                                            ),
-                                          ],
-                                        ),
-                                        Padding(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child: Text(
-                                            'Appoint.Token:  ' +
-                                                '  ${_data['server_data'][index]['id']}',
-                                            style: TextStyle(
-                                                fontSize: 18,
-                                                fontWeight: FontWeight.bold,
-                                                color: Colors.indigoAccent),
+                                              DataCell(
+                                                Text(
+                                                  _data['server_data'][index]
+                                                      ['status'],
+                                                  style: TextStyle(
+                                                      fontSize: 18,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      color: _data['server_data']
+                                                                      [index]
+                                                                  ['status'] ==
+                                                              'pending'
+                                                          ? Colors
+                                                              .yellow.shade800
+                                                          : _data['server_data']
+                                                                          [index]
+                                                                      [
+                                                                      'status'] ==
+                                                                  'confirm'
+                                                              ? Colors.green
+                                                              : _data['server_data']
+                                                                              [index]
+                                                                          [
+                                                                          'status'] ==
+                                                                      'complete'
+                                                                  ? Colors.blue
+                                                                  : Colors.red
+                                                                      .shade300),
+                                                ),
+                                              ),
+                                            ],
                                           ),
-                                        ),
-                                        Padding(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child: Text(
-                                            'Hospital/Clinic :    ' +
-                                                '${_data['server_data'][index]['name']}',
-                                            style: TextStyle(
-                                                fontSize: 18,
-                                                fontWeight: FontWeight.bold,
-                                                color: Colors.black54),
+                                          DataRow(
+                                            cells: <DataCell>[
+                                              DataCell(
+                                                Text(
+                                                  'Appoint.Token:  ',
+                                                  style:
+                                                      TextStyle(fontSize: 15),
+                                                ),
+                                              ),
+                                              DataCell(
+                                                Text(
+                                                  '${_data['server_data'][index]['id']}',
+                                                  style: TextStyle(
+                                                      fontSize: 15,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      color:
+                                                          Colors.indigoAccent),
+                                                ),
+                                              ),
+                                            ],
                                           ),
-                                        ),
-                                        Padding(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child: Text(
-                                            'Appoint.Date :   ' +
-                                                '${_data['server_data'][index]['appointmentdate']}',
-                                            style: TextStyle(
-                                                fontSize: 18,
-                                                fontWeight: FontWeight.bold,
-                                                color: Colors.black54),
+                                          DataRow(
+                                            cells: [
+                                              DataCell(
+                                                Text(
+                                                  'Appoint.Date :',
+                                                  style: TextStyle(
+                                                      fontSize: 15,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      color: Colors.black54),
+                                                ),
+                                              ),
+                                              DataCell(
+                                                Text(
+                                                    '${DateFormat.yMMMMd().format(
+                                                      DateTime.parse(
+                                                        _data['server_data']
+                                                                [index]
+                                                            ['appointmentdate'],
+                                                      ),
+                                                    )}'
+                                                        .toString(),
+                                                    style: TextStyle(
+                                                        fontSize: 16,
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        color: Colors.black54)),
+                                              ),
+                                            ],
                                           ),
-                                        ),
-                                        Padding(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child: Text(
-                                            'Appoint.Time : ' +
-                                                '${_data['server_data'][index]['appointmenttime']}',
-                                            style: TextStyle(
-                                                fontSize: 18,
-                                                fontWeight: FontWeight.bold,
-                                                color: Colors.black54),
+                                          DataRow(
+                                            cells: <DataCell>[
+                                              DataCell(
+                                                Text('Appoint.Time:'),
+                                              ),
+                                              DataCell(
+                                                Text(
+                                                  '${_data['server_data'][index]['appointmenttime']}',
+                                                  style: TextStyle(
+                                                      fontSize: 18,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      color: Colors.black54),
+                                                ),
+                                              ),
+                                            ],
                                           ),
-                                        ),
-                                        Padding(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child: Text(
-                                            ' Your Phone   :' +
-                                                '  ${_data['server_data'][index]['pd_cell_no']}',
-                                            style: TextStyle(
-                                                fontSize: 18,
-                                                fontWeight: FontWeight.bold,
-                                                color: Colors.black54),
+                                          DataRow(
+                                            cells: <DataCell>[
+                                              DataCell(
+                                                Text('Your phone:'),
+                                              ),
+                                              DataCell(
+                                                Text(
+                                                  '${_data['server_data'][index]['pd_cell_no']}',
+                                                  style: TextStyle(
+                                                      fontSize: 18,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      color: Colors.black54),
+                                                ),
+                                              ),
+                                            ],
                                           ),
-                                        )
-                                      ],
+                                          DataRow(
+                                            cells: <DataCell>[
+                                              DataCell(
+                                                Text('Hospital/Clinic:'),
+                                              ),
+                                              DataCell(
+                                                Text(
+                                                  '${_data['server_data'][index]['name']}',
+                                                  style: TextStyle(
+                                                      fontSize: 18,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      color: Colors.black54),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                          DataRow(
+                                            cells: <DataCell>[
+                                              DataCell(
+                                                Text(
+                                                    'Hospital/Clinic Address:'),
+                                              ),
+                                              DataCell(
+                                                Text(
+                                                  '${_data['server_data'][index]['address']}',
+                                                  style: TextStyle(
+                                                      fontSize: 18,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      color: Colors.black54),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ],
+                                      ),
                                     ),
+                                    // Column(
+                                    //   mainAxisAlignment:
+                                    //       MainAxisAlignment.start,
+                                    //   mainAxisSize: MainAxisSize.min,
+                                    //   crossAxisAlignment:
+                                    //       CrossAxisAlignment.start,
+                                    //   children: [
+                                    //     Row(
+                                    //       children: [
+                                    //         Icon(
+                                    //           Icons.flag,
+                                    //           size: 35,
+                                    //           color: Colors.black,
+                                    //         ),
+                                    //         Padding(
+                                    //           padding: const EdgeInsets.only(
+                                    //               left: 10),
+                                    //           child: Text(
+                                    //             _data['server_data'][index]
+                                    //                 ['status'],
+                                    //             style: TextStyle(
+                                    //                 fontSize: 18,
+                                    //                 fontWeight: FontWeight.bold,
+                                    //                 color: _data['server_data']
+                                    //                                 [index]
+                                    //                             ['status'] ==
+                                    //                         'pending'
+                                    //                     ? Colors.yellow.shade800
+                                    //                     : _data['server_data']
+                                    //                                     [index][
+                                    //                                 'status'] ==
+                                    //                             'confirm'
+                                    //                         ? Colors.green
+                                    //                         : _data['server_data']
+                                    //                                         [
+                                    //                                         index]
+                                    //                                     [
+                                    //                                     'status'] ==
+                                    //                                 'complete'
+                                    //                             ? Colors.blue
+                                    //                             : Colors.red
+                                    //                                 .shade300),
+                                    //           ),
+                                    //         ),
+                                    //       ],
+                                    //     ),
+                                    //     Padding(
+                                    //       padding: const EdgeInsets.all(8.0),
+                                    //       child: Text(
+                                    //         'Appoint.Token:  ' +
+                                    //             '  ${_data['server_data'][index]['id']}',
+                                    //         style: TextStyle(
+                                    //             fontSize: 18,
+                                    //             fontWeight: FontWeight.bold,
+                                    //             color: Colors.indigoAccent),
+                                    //       ),
+                                    //     ),
+                                    //     Padding(
+                                    //       padding: const EdgeInsets.all(8.0),
+                                    //       child: Text(
+                                    //         'Hospital/Clinic :    ' +
+                                    //             '${_data['server_data'][index]['name']}',
+                                    //         style: TextStyle(
+                                    //             fontSize: 18,
+                                    //             fontWeight: FontWeight.bold,
+                                    //             color: Colors.black54),
+                                    //       ),
+                                    //     ),
+                                    //     Padding(
+                                    //       padding: const EdgeInsets.all(8.0),
+                                    //       child: Text(
+                                    //         'Appoint.Date :   ' +
+                                    //             '${_data['server_data'][index]['appointmentdate']}',
+                                    //         style: TextStyle(
+                                    //             fontSize: 18,
+                                    //             fontWeight: FontWeight.bold,
+                                    //             color: Colors.black54),
+                                    //       ),
+                                    //     ),
+                                    //     Padding(
+                                    //       padding: const EdgeInsets.all(8.0),
+                                    //       child: Text(
+                                    //         'Appoint.Time : ' +
+                                    //             '${_data['server_data'][index]['appointmenttime']}',
+                                    //         style: TextStyle(
+                                    //             fontSize: 18,
+                                    //             fontWeight: FontWeight.bold,
+                                    //             color: Colors.black54),
+                                    //       ),
+                                    //     ),
+                                    //     Padding(
+                                    //       padding: const EdgeInsets.all(8.0),
+                                    //       child: Text(
+                                    //         ' Your Phone   :' +
+                                    //             '  ${_data['server_data'][index]['pd_cell_no']}',
+                                    //         style: TextStyle(
+                                    //             fontSize: 18,
+                                    //             fontWeight: FontWeight.bold,
+                                    //             color: Colors.black54),
+                                    //       ),
+                                    //     )
+                                    //   ],
+                                    // ),
                                     _data['server_data'][index]['status'] ==
                                                 'cancel' ||
                                             _data['server_data'][index]

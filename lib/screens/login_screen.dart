@@ -17,7 +17,7 @@ class SignInScreen extends StatefulWidget {
 
 class _SignInScreenState extends State<SignInScreen> {
   bool _isloading = true;
-  bool _submit = false;
+ // bool _submit = false;
   bool verifypassword(
     String password,
     String hash,

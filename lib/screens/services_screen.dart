@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:io';
 import '../screens/previous_medicalrecord_screen.dart';
 import '../services/appointment_services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -136,7 +135,7 @@ class _ServicesScreenState extends State<ServicesScreen> {
         await getCities();
         await getServices();
         await gettotaldoctornumber();
-        
+
         await configOneSignal();
         await getPlayerID();
         await registerDevice();

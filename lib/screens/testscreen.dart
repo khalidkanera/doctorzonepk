@@ -15,6 +15,7 @@ class _TestScreenState extends State<TestScreen> {
         title: Text('Test Sceen'),
       ),
       body: DataTable(
+        dividerThickness: 0,
         columns: <DataColumn>[
           DataColumn(
             label: Text(''),
@@ -24,6 +25,46 @@ class _TestScreenState extends State<TestScreen> {
           ),
         ],
         rows: <DataRow>[
+          DataRow(
+            cells: [
+              DataCell(
+                Text('my name'),
+              ),
+              DataCell(
+                Text('my name'),
+              ),
+            ],
+          ),
+          DataRow(
+            cells: <DataCell>[
+              DataCell(
+                Text('my name'),
+              ),
+              DataCell(
+                Text('my name'),
+              ),
+            ],
+          ),
+          DataRow(
+            cells: [
+              DataCell(
+                Text('my name'),
+              ),
+              DataCell(
+                Text('my name'),
+              ),
+            ],
+          ),
+          DataRow(
+            cells: <DataCell>[
+              DataCell(
+                Text('my name'),
+              ),
+              DataCell(
+                Text('my name'),
+              ),
+            ],
+          ),
           DataRow(
             cells: <DataCell>[
               DataCell(
