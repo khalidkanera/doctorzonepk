@@ -12,7 +12,7 @@ class _TestScreenState extends State<TestScreen> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.indigo.shade900,
-        title: Text('Test Sceen'),
+        title: Text('Help Line'),
       ),
       body: DataTable(
         dividerThickness: 0,
@@ -28,50 +28,10 @@ class _TestScreenState extends State<TestScreen> {
           DataRow(
             cells: [
               DataCell(
-                Text('my name'),
+                Text('Call at'),
               ),
               DataCell(
-                Text('my name'),
-              ),
-            ],
-          ),
-          DataRow(
-            cells: <DataCell>[
-              DataCell(
-                Text('my name'),
-              ),
-              DataCell(
-                Text('my name'),
-              ),
-            ],
-          ),
-          DataRow(
-            cells: [
-              DataCell(
-                Text('my name'),
-              ),
-              DataCell(
-                Text('my name'),
-              ),
-            ],
-          ),
-          DataRow(
-            cells: <DataCell>[
-              DataCell(
-                Text('my name'),
-              ),
-              DataCell(
-                Text('my name'),
-              ),
-            ],
-          ),
-          DataRow(
-            cells: <DataCell>[
-              DataCell(
-                Text('my name'),
-              ),
-              DataCell(
-                Text('my name'),
+                Text('0315-7439959'),
               ),
             ],
           ),

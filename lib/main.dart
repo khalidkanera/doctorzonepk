@@ -1,6 +1,9 @@
 import 'dart:async';
 import 'dart:io';
 
+import 'package:doctorzone/screens/history_appointment_screen.dart';
+import 'package:doctorzone/screens/inbox_screen.dart';
+
 import './screens/getappointment_screen.dart';
 import './screens/previous_medicalrecord_screen.dart';
 import 'package:flutter/services.dart';
@@ -105,6 +108,8 @@ class _MyAppState extends State<MyApp> {
         TestScreen.routeName: (_) => TestScreen(),
         PreviousMedicalRecordScreen.routeName: (_) =>
             PreviousMedicalRecordScreen(),
+        InboxScreen.routeName: (_) => InboxScreen(),
+        HistoryScreen.routeName: (_) => HistoryScreen(),
       },
     );
   }

@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import '/exception.dart';
 import '/screens/selected_doctor_screen.dart';
 import 'package:flutter/cupertino.dart';
@@ -61,15 +60,17 @@ class _DoctorsProfileScreen2State extends State<DoctorsProfileScreen2> {
   @override
   void didChangeDependencies() async {
     // try {
+    super.didChangeDependencies();
     await initial();
     await getAllDoctorsRecord(_sid);
     print(_comingData);
-    print(_comingData['doctors'].length);
+    //print('length:${_comingData['doctors'].length}');
+    // print(
+    //    'User Coming Experience : ${_comingData['doctors'][0]['experiences'][0]['exp_experience_in_years']}');
     setState(() {
       _loading = false;
     });
     // print('Coming Doctors : ${filteredDoctors.length}');
-    super.didChangeDependencies();
     // } catch (e) {
     //   ShowExceptionDialogBox.showExceptionDialog(context);
     // }
@@ -145,7 +146,7 @@ class _DoctorsProfileScreen2State extends State<DoctorsProfileScreen2> {
                                                     //     ),
                                                     //   )
                                                     NetworkImage(
-                                              '${Ip.serverip2}/uploads/${_comingData['doctors'][index]['persoanldata'][0]['pd_pic']}',
+                                              '${Ip.serverip3}/doctorimg_upload/${_comingData['doctors'][index]['persoanldata'][0]['pd_pic']}',
                                             )),
                                           ),
                                         ),
@@ -173,19 +174,31 @@ class _DoctorsProfileScreen2State extends State<DoctorsProfileScreen2> {
                                                   padding:
                                                       const EdgeInsets.only(
                                                           top: 5),
-                                                  child: Text(
-                                                    _comingData['doctors']
-                                                                    [index][
-                                                                'experiences'][0]
-                                                            [
-                                                            'exp_experience_in_years'] +
-                                                        ' Years Experience',
-                                                    style: TextStyle(
-                                                        color: Colors
-                                                            .teal.shade500),
-                                                    overflow:
-                                                        TextOverflow.ellipsis,
-                                                  ),
+                                                  child: _comingData['doctors']
+                                                                  [index]
+                                                              ['experiences'] ==
+                                                          []
+                                                      ? Text('')
+                                                      : Text(
+                                                          _comingData['doctors']
+                                                                          [
+                                                                          index]
+                                                                      [
+                                                                      'experiences'][0]
+                                                                  [
+                                                                  'total_experience'] +
+                                                              //  _comingData['doctors']
+                                                              //                 [index][
+                                                              //             'experiences'][0]
+                                                              //         [
+                                                              //         'exp_experience_in_years'] +
+                                                              ' Years Experience',
+                                                          style: TextStyle(
+                                                              color: Colors.teal
+                                                                  .shade500),
+                                                          overflow: TextOverflow
+                                                              .ellipsis,
+                                                        ),
                                                 ),
                                               ],
                                             ),

@@ -244,188 +244,148 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
                   //Personal
 
-                  Card(
-                    margin: EdgeInsets.only(),
-                    child: Column(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.only(top: 10, bottom: 8),
-                          child: Text(
-                            'Personal Information',
-                            style: TextStyle(
-                              fontSize: 20,
+                  DataTable(
+                    horizontalMargin: 0,
+                    dividerThickness: 0,
+                    columns: <DataColumn>[
+                      DataColumn(
+                        label: Text(''),
+                      ),
+                      DataColumn(
+                        label: Text(''),
+                      ),
+                    ],
+                    rows: <DataRow>[
+                      DataRow(
+                        cells: [
+                          DataCell(Text('Gender')),
+                          DataCell(
+                            Text(
+                              '$_gender'.toString(),
+                              style: TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.black54),
                             ),
                           ),
-                        ),
-                        DataTable(
-                          horizontalMargin: 0,
-                          dividerThickness: 0,
-                          columns: <DataColumn>[
-                            DataColumn(
-                              label: Text(''),
+                        ],
+                      ),
+                      DataRow(
+                        cells: <DataCell>[
+                          DataCell(
+                            Text(
+                              'Date of Birth ',
+                              style: TextStyle(fontSize: 15),
                             ),
-                            DataColumn(
-                              label: Text(''),
-                            ),
-                          ],
-                          rows: <DataRow>[
-                            DataRow(
-                              cells: [
-                                DataCell(Text('Gender')),
-                                DataCell(
-                                  Text(
-                                    '$_gender'.toString(),
-                                    style: TextStyle(
-                                        fontSize: 18,
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.black54),
-                                  ),
-                                ),
-                              ],
-                            ),
-                            DataRow(
-                              cells: <DataCell>[
-                                DataCell(
-                                  Text(
-                                    'Date of Birth  ',
-                                    style: TextStyle(fontSize: 15),
-                                  ),
-                                ),
-                                DataCell(
-                                  Text(
-                                    '${DateFormat.yMMMMd().format(DateTime.parse(_date_Of_Birht)).toString()}',
+                          ),
+                          DataCell(
+                            _date_Of_Birht == 'null'
+                                ? Text('')
+                                : Text(
+                                    '${DateFormat.yMMMMd().format(
+                                          DateTime.parse(_date_Of_Birht),
+                                        ).toString()}',
                                     style: TextStyle(
                                         fontSize: 15,
                                         fontWeight: FontWeight.bold,
                                         color: Colors.indigoAccent),
                                   ),
-                                ),
-                              ],
+                          ),
+                        ],
+                      ),
+                      DataRow(
+                        cells: [
+                          DataCell(
+                            Text(
+                              'Phone Number',
+                              style: TextStyle(
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.black54),
                             ),
-                            DataRow(
-                              cells: [
-                                DataCell(
-                                  Text(
-                                    'Phone Number',
-                                    style: TextStyle(
-                                        fontSize: 15,
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.black54),
-                                  ),
-                                ),
-                                DataCell(
-                                  Text('$_cell_no'.toString(),
-                                      style: TextStyle(
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.bold,
-                                          color: Colors.black54)),
-                                ),
-                              ],
-                            ),
-                            DataRow(
-                              cells: <DataCell>[
-                                DataCell(
-                                  Text('Whatsapp:'),
-                                ),
-                                DataCell(
-                                  Text(
+                          ),
+                          DataCell(
+                            Text('$_cell_no'.toString(),
+                                style: TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.black54)),
+                          ),
+                        ],
+                      ),
+                      DataRow(
+                        cells: <DataCell>[
+                          DataCell(
+                            Text('Whatsapp'),
+                          ),
+                          DataCell(
+                            _whatsapp_no == 'null'
+                                ? Text('')
+                                : Text(
                                     '$_whatsapp_no'.toString(),
                                     style: TextStyle(
                                         fontSize: 18,
                                         fontWeight: FontWeight.bold,
                                         color: Colors.black54),
                                   ),
-                                ),
-                              ],
-                            ),
-                            DataRow(
-                              cells: <DataCell>[
-                                DataCell(
-                                  Text('CNIC:'),
-                                ),
-                                DataCell(
-                                  Text(
+                          ),
+                        ],
+                      ),
+                      DataRow(
+                        cells: <DataCell>[
+                          DataCell(
+                            Text('CNIC'),
+                          ),
+                          DataCell(
+                            _CNIC == 'null'
+                                ? Text('')
+                                : Text(
                                     '$_CNIC'.toString(),
                                     style: TextStyle(
                                         fontSize: 18,
                                         fontWeight: FontWeight.bold,
                                         color: Colors.black54),
                                   ),
-                                ),
-                              ],
-                            ),
-                            DataRow(
-                              cells: <DataCell>[
-                                DataCell(
-                                  Text('Email'),
-                                ),
-                                DataCell(
-                                  Text(
+                          ),
+                        ],
+                      ),
+                      DataRow(
+                        cells: <DataCell>[
+                          DataCell(
+                            Text('Email'),
+                          ),
+                          DataCell(
+                            _email == 'null'
+                                ? Text('')
+                                : Text(
                                     '$_email'.toString(),
                                     style: TextStyle(
                                         fontSize: 18,
                                         fontWeight: FontWeight.bold,
                                         color: Colors.black54),
                                   ),
-                                ),
-                              ],
-                            ),
-                            DataRow(
-                              cells: <DataCell>[
-                                DataCell(
-                                  Text('Address:'),
-                                ),
-                                DataCell(
-                                  Text(
+                          ),
+                        ],
+                      ),
+                      DataRow(
+                        cells: <DataCell>[
+                          DataCell(
+                            Text('Address'),
+                          ),
+                          DataCell(
+                            _address == 'null'
+                                ? Text('')
+                                : Text(
                                     '$_address'.toString(),
                                     style: TextStyle(
                                         fontSize: 18,
                                         fontWeight: FontWeight.bold,
                                         color: Colors.black54),
                                   ),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-
-                        // getRow('Gender :                   ', _gender),
-
-                        // getRow(
-                        //     'Date of Birth :         ',
-                        //     _date_Of_Birht == 'null'
-                        //         ? ''
-                        //         : _date_Of_Birht.toString()),
-                        // // DateFormat.y()
-                        // // .format(DateTime.parse(_date_Of_Birht))
-                        // // .toString()),
-
-                        // getRow('Email :                      ',
-                        //     _email == 'null' ? '' : _email),
-
-                        // getRow('Cell Number :          ',
-                        //     _cell_no == null ? '' : _cell_no.toString()),
-                        // getRow(
-                        //   'WhatsApp :              ',
-                        //   _whatsapp_no == 'null' ? '' : _whatsapp_no.toString(),
-                        // ),
-                        // getRow('CNIC :                       ',
-                        //     _CNIC == 'null' ? '' : _CNIC.toString()),
-
-                        // getRow('Country :                  ', 'Pakistan'),
-                        // getRow('City :                         ',
-                        //     _city == null ? '' : _city),
-                        // Padding(
-                        //   padding: const EdgeInsets.only(bottom: 10),
-                        //   child: getRow(
-                        //     'Address :                 ',
-                        //     _address == 'null' ? '' : _address.toString(),
-                        //   ),
-                        // ),
-
-                        //
-                      ],
-                    ),
+                          ),
+                        ],
+                      ),
+                    ],
                   ),
                 ],
               ),

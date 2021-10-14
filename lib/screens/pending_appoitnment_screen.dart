@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
 import 'package:intl/intl.dart';
-
 import '../screens/services_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -362,36 +361,6 @@ class _PendingAppointmentScreenState extends State<PendingAppointmentScreen> {
                                                   size: 35,
                                                   color: Colors.black54,
                                                 ),
-                                                //         Padding(
-                                                //           padding: const EdgeInsets.only(
-                                                //               left: 10),
-                                                //           child: Text(
-                                                //             _data['server_data'][index]
-                                                //                 ['status'],
-                                                //             style: TextStyle(
-                                                //                 fontSize: 18,
-                                                //                 fontWeight: FontWeight.bold,
-                                                //                 color: _data['server_data']
-                                                //                                 [index]
-                                                //                             ['status'] ==
-                                                //                         'pending'
-                                                //                     ? Colors.yellow.shade800
-                                                //                     : _data['server_data']
-                                                //                                     [index][
-                                                //                                 'status'] ==
-                                                //                             'confirm'
-                                                //                         ? Colors.green
-                                                //                         : _data['server_data']
-                                                //                                         [
-                                                //                                         index]
-                                                //                                     [
-                                                //                                     'status'] ==
-                                                //                                 'complete'
-                                                //                             ? Colors.blue
-                                                //                             : Colors.red
-                                                //                                 .shade300),
-                                                //           ),
-                                                //         ),
                                               ),
                                               DataCell(
                                                 Text(
@@ -549,109 +518,6 @@ class _PendingAppointmentScreenState extends State<PendingAppointmentScreen> {
                                         ],
                                       ),
                                     ),
-                                    // Column(
-                                    //   mainAxisAlignment:
-                                    //       MainAxisAlignment.start,
-                                    //   mainAxisSize: MainAxisSize.min,
-                                    //   crossAxisAlignment:
-                                    //       CrossAxisAlignment.start,
-                                    //   children: [
-                                    //     Row(
-                                    //       children: [
-                                    //         Icon(
-                                    //           Icons.flag,
-                                    //           size: 35,
-                                    //           color: Colors.black,
-                                    //         ),
-                                    //         Padding(
-                                    //           padding: const EdgeInsets.only(
-                                    //               left: 10),
-                                    //           child: Text(
-                                    //             _data['server_data'][index]
-                                    //                 ['status'],
-                                    //             style: TextStyle(
-                                    //                 fontSize: 18,
-                                    //                 fontWeight: FontWeight.bold,
-                                    //                 color: _data['server_data']
-                                    //                                 [index]
-                                    //                             ['status'] ==
-                                    //                         'pending'
-                                    //                     ? Colors.yellow.shade800
-                                    //                     : _data['server_data']
-                                    //                                     [index][
-                                    //                                 'status'] ==
-                                    //                             'confirm'
-                                    //                         ? Colors.green
-                                    //                         : _data['server_data']
-                                    //                                         [
-                                    //                                         index]
-                                    //                                     [
-                                    //                                     'status'] ==
-                                    //                                 'complete'
-                                    //                             ? Colors.blue
-                                    //                             : Colors.red
-                                    //                                 .shade300),
-                                    //           ),
-                                    //         ),
-                                    //       ],
-                                    //     ),
-                                    //     Padding(
-                                    //       padding: const EdgeInsets.all(8.0),
-                                    //       child: Text(
-                                    //         'Appoint.Token:  ' +
-                                    //             '  ${_data['server_data'][index]['id']}',
-                                    //         style: TextStyle(
-                                    //             fontSize: 18,
-                                    //             fontWeight: FontWeight.bold,
-                                    //             color: Colors.indigoAccent),
-                                    //       ),
-                                    //     ),
-                                    //     Padding(
-                                    //       padding: const EdgeInsets.all(8.0),
-                                    //       child: Text(
-                                    //         'Hospital/Clinic :    ' +
-                                    //             '${_data['server_data'][index]['name']}',
-                                    //         style: TextStyle(
-                                    //             fontSize: 18,
-                                    //             fontWeight: FontWeight.bold,
-                                    //             color: Colors.black54),
-                                    //       ),
-                                    //     ),
-                                    //     Padding(
-                                    //       padding: const EdgeInsets.all(8.0),
-                                    //       child: Text(
-                                    //         'Appoint.Date :   ' +
-                                    //             '${_data['server_data'][index]['appointmentdate']}',
-                                    //         style: TextStyle(
-                                    //             fontSize: 18,
-                                    //             fontWeight: FontWeight.bold,
-                                    //             color: Colors.black54),
-                                    //       ),
-                                    //     ),
-                                    //     Padding(
-                                    //       padding: const EdgeInsets.all(8.0),
-                                    //       child: Text(
-                                    //         'Appoint.Time : ' +
-                                    //             '${_data['server_data'][index]['appointmenttime']}',
-                                    //         style: TextStyle(
-                                    //             fontSize: 18,
-                                    //             fontWeight: FontWeight.bold,
-                                    //             color: Colors.black54),
-                                    //       ),
-                                    //     ),
-                                    //     Padding(
-                                    //       padding: const EdgeInsets.all(8.0),
-                                    //       child: Text(
-                                    //         ' Your Phone   :' +
-                                    //             '  ${_data['server_data'][index]['pd_cell_no']}',
-                                    //         style: TextStyle(
-                                    //             fontSize: 18,
-                                    //             fontWeight: FontWeight.bold,
-                                    //             color: Colors.black54),
-                                    //       ),
-                                    //     )
-                                    //   ],
-                                    // ),
                                     _data['server_data'][index]['status'] ==
                                                 'cancel' ||
                                             _data['server_data'][index]
@@ -661,65 +527,77 @@ class _PendingAppointmentScreenState extends State<PendingAppointmentScreen> {
                                                     ['status'] ==
                                                 'confirm'
                                         ? Container()
-                                        : ElevatedButton(
-                                            style: ElevatedButton.styleFrom(
-                                                padding: EdgeInsets.symmetric(
-                                                    horizontal: 30,
-                                                    vertical: 20),
-                                                primary:
-                                                    Colors.yellow.shade800),
-                                            onPressed: () async {
-                                              List<String> playerID =
-                                                  await _getPatientPlayerID(
-                                                      index);
-                                              await _sendNotification(playerID,
-                                                  'Appointment Cancelled');
-                                              showDialog(
-                                                context: context,
-                                                builder: (ctx) => AlertDialog(
-                                                  content: Row(
-                                                    children: [
-                                                      CircularProgressIndicator(),
-                                                      Padding(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                    .only(
-                                                                left: 8.0),
-                                                        child:
-                                                            Text('Please Wait'),
-                                                      ),
-                                                    ],
+                                        : Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: ElevatedButton(
+                                              style: ElevatedButton.styleFrom(
+                                                  padding: EdgeInsets.symmetric(
+                                                      horizontal: 35,
+                                                      vertical: 18),
+                                                  primary:
+                                                      Colors.yellow.shade800),
+                                              onPressed: () async {
+                                                List<String> playerID =
+                                                    await _getPatientPlayerID(
+                                                        index);
+                                                await _sendNotification(
+                                                    playerID,
+                                                    'Appointment Cancelled');
+                                                showDialog(
+                                                  context: context,
+                                                  builder: (ctx) => AlertDialog(
+                                                    content: Row(
+                                                      children: [
+                                                        CircularProgressIndicator(),
+                                                        Padding(
+                                                          padding:
+                                                              const EdgeInsets
+                                                                      .only(
+                                                                  left: 8.0),
+                                                          child: Text(
+                                                              'Please Wait'),
+                                                        ),
+                                                      ],
+                                                    ),
                                                   ),
-                                                ),
-                                              );
-                                              await http.post(
-                                                '${IP.serverip}/updatestatusofappointment.php',
-                                                body: {
-                                                  'message':
-                                                      'cancel by patient',
-                                                  'puid': id,
-                                                  'id': _data['server_data']
-                                                      [index]['id'],
-                                                  'status': 'cancel'
-                                                },
-                                              );
-                                              print({id});
+                                                );
 
-                                              Navigator.of(context).pop();
-                                              // Navigator.of(context).pop();
-                                              Navigator.of(context)
-                                                  .pushReplacementNamed(
-                                                      ServicesScreen.routeName,
-                                                      arguments: {
-                                                    'index': 1,
-                                                  });
-                                              //Navigator.of(context)
-                                              // .popUntil((route) => false);
-                                            },
-                                            child: Text(
-                                              'Cancel Appointment',
-                                              style: TextStyle(
-                                                fontSize: 17,
+                                                await http.post(
+                                                  '${IP.serverip}/updatestatusofappointment.php',
+                                                  body: {
+                                                    'message':
+                                                        'cancel by patient',
+                                                    'puid': id,
+                                                    'id': _data['server_data']
+                                                        [index]['id'],
+                                                    'status': 'cancel',
+                                                    'cancelID': id,
+                                                    'cancelTime': DateTime.now()
+                                                        .toString(),
+                                                  },
+                                                );
+                                                print('Here 2');
+
+                                                print(DateTime.now());
+                                                print({id});
+
+                                                Navigator.of(context).pop();
+                                                // Navigator.of(context).pop();
+                                                Navigator.of(context)
+                                                    .pushReplacementNamed(
+                                                        ServicesScreen
+                                                            .routeName,
+                                                        arguments: {
+                                                      'index': 1,
+                                                    });
+                                                //Navigator.of(context)
+                                                // .popUntil((route) => false);
+                                              },
+                                              child: Text(
+                                                'Cancel Appointment',
+                                                style: TextStyle(
+                                                  fontSize: 17,
+                                                ),
                                               ),
                                             ),
                                           ),

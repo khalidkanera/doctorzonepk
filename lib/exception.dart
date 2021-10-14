@@ -11,7 +11,7 @@ class ShowExceptionDialogBox {
             color: Theme.of(context).colorScheme.secondary,
           ),
         ),
-        content: Text('اپنا انٹرنیٹ کنکشن چیک کریں'),
+        content: Text('server erorr:( \n سرور سائیڈ پر خرابی پیش آگئی۔'),
         actions: [
           Center(
             child: SizedBox(

@@ -71,10 +71,15 @@ class _AvailAbleDoctorScreenState extends State<AvailAbleDoctorScreen> {
 
   void setResults(String query) {
     _filteredDoctor = _dctordata['doctors']
-        .where((elem) => elem['pd_full_name']
-            .toString()
-            .toLowerCase()
-            .contains(query.toLowerCase()))
+        .where((elem) =>
+            elem['pd_full_name']
+                .toString()
+                .toLowerCase()
+                .contains(query.toLowerCase()) ||
+            elem['title'][0]['title']
+                .toString()
+                .toLowerCase()
+                .contains(query.toLowerCase()))
         .toList();
   }
 
@@ -154,13 +159,14 @@ class _AvailAbleDoctorScreenState extends State<AvailAbleDoctorScreen> {
                                     shape: BoxShape.circle,
                                     color: Colors.white,
                                     image: DecorationImage(
-                                        image: (_dctordata['doctors'] != [])
-                                            ? NetworkImage(
-                                                '${Ip.serverip2}/uploads/${_dctordata['doctors'][index]['pd_pic']}',
-                                              )
-                                            : AssetImage(
-                                                'asset/user.png',
-                                              ),
+                                        image:
+                                            (_dctordata['doctors'].length != 0)
+                                                ? NetworkImage(
+                                                    '${Ip.serverip3}/doctorimg_upload/${_dctordata['doctors'][index]['pd_pic']}',
+                                                  )
+                                                : AssetImage(
+                                                    'asset/user.png',
+                                                  ),
                                         fit: BoxFit.fill),
                                   ),
                                 ),
@@ -178,8 +184,9 @@ class _AvailAbleDoctorScreenState extends State<AvailAbleDoctorScreen> {
                                               const EdgeInsets.only(left: 10),
                                           child: Text(
                                             _dctordata['doctors'][index]
-                                                        ['title'][0]['title'] ==
-                                                    'None'
+                                                            ['title']
+                                                        .length ==
+                                                    0
                                                 ? 'Dr.${_dctordata['doctors'][index]['pd_full_name']}'
                                                 : _dctordata['doctors'][index]
                                                         ['title'][0]['title'] +
@@ -220,7 +227,7 @@ class _AvailAbleDoctorScreenState extends State<AvailAbleDoctorScreen> {
                                         _dctordata['doctors'][index]
                                                     ['experiences'] !=
                                                 []
-                                            ? '${_dctordata['doctors'][index]['experiences'][0]['exp_experience_in_years']}' +
+                                            ? '${_dctordata['doctors'][index]['experiences'][0]['total_experience']}' +
                                                 ' years experience'
                                             : ' yers experience',
                                         style: TextStyle(
@@ -307,9 +314,9 @@ class _AvailAbleDoctorScreenState extends State<AvailAbleDoctorScreen> {
                                           padding:
                                               const EdgeInsets.only(left: 10),
                                           child: Text(
-                                            _filteredDoctor[index]['title'][0]
-                                                        ['title'] ==
-                                                    'None'
+                                            _filteredDoctor[index]['title']
+                                                        .length ==
+                                                    0
                                                 ? 'Dr.' +
                                                     _filteredDoctor[index]
                                                         ['pd_full_name']
@@ -345,7 +352,7 @@ class _AvailAbleDoctorScreenState extends State<AvailAbleDoctorScreen> {
                                       padding: const EdgeInsets.only(
                                           left: 8.0, top: 5),
                                       child: Text(
-                                        '${_filteredDoctor[index]['experiences'][0]['exp_experience_in_years']}' +
+                                        '${_filteredDoctor[index]['experiences'][0]['total_experience']}' +
                                             ' years experience',
                                         style: TextStyle(
                                             fontSize: 17,

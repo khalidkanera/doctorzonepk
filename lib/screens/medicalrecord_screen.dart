@@ -21,6 +21,7 @@ class _MedicalRecordState extends State<MedicalRecordScreen> {
   void didchangeDependencies() async {
     userdata = await SharedPreferences.getInstance();
     id = userdata.getString('id');
+    print('iddddd:$id');
     super.didChangeDependencies();
   }
 

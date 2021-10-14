@@ -1,4 +1,9 @@
 import 'dart:convert';
+import 'package:doctorzone/screens/history_appointment_screen.dart';
+import 'package:doctorzone/screens/inbox_screen.dart';
+import 'package:doctorzone/screens/privacy_policy.dart';
+import 'package:url_launcher/url_launcher.dart';
+
 import '../screens/previous_medicalrecord_screen.dart';
 import '../services/appointment_services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -33,13 +38,17 @@ class _ServicesScreenState extends State<ServicesScreen> {
   SharedPreferences _logindata;
   var _uID;
   var _total;
+  var _pic2;
   List<PatientModel> _patientData = [];
+  // ignore: unused_field
   String _email;
   String _name;
   PatientModel _allpatientDat;
   List<AvailableServices> services = [];
   bool _isLoading = true;
   String _cityID;
+  // ignore: unused_field
+  Future<void> _launched;
 
   List<CityModel> _cities = [];
   // ignore: unused_field
@@ -81,6 +90,14 @@ class _ServicesScreenState extends State<ServicesScreen> {
     }
 
     //
+  }
+
+  Future<void> _makePhoneCall(String url) async {
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
   }
 
   Future<void> getpatientpersonaldat() async {
@@ -173,6 +190,9 @@ class _ServicesScreenState extends State<ServicesScreen> {
           orElse: () => PatientModel());
       _email = _allpatientDat.email;
       _name = _allpatientDat.full_name;
+      _pic2 = _allpatientDat.pic;
+
+      print(_pic2);
     } catch (e) {
       print(e);
     }
@@ -257,24 +277,26 @@ class _ServicesScreenState extends State<ServicesScreen> {
               Center(
                 child: UserAccountsDrawerHeader(
                   currentAccountPicture: CircleAvatar(
-                    backgroundColor: Colors.yellow,
-                    child: Text(
-                      _name == null ? '' : _name[0],
-                      overflow: TextOverflow.ellipsis,
-                      style: TextStyle(
-                        fontSize: 27,
-                        color: Colors.black,
-                      ),
-                    ),
+                    radius: 100,
+                    backgroundColor: Colors.white,
+                    backgroundImage: NetworkImage('$_pic2'),
+                    // child: Text(
+                    //   _name == null ? '' : _name[0].toUpperCase(),
+                    //   overflow: TextOverflow.ellipsis,
+                    //   style: TextStyle(
+                    //     fontSize: 27,
+                    //     color: Colors.black,
+                    //   ),
+                    // ),
                   ),
                   accountEmail: Text(
-                    _email == null ? "" : _email.toString(),
+                    _name == null ? "" : _name.toString(),
                     style: TextStyle(
                       fontSize: 18,
                     ),
                   ),
                   accountName: Text(
-                    'User Profile',
+                    '',
                     style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.w400,
@@ -283,21 +305,21 @@ class _ServicesScreenState extends State<ServicesScreen> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.all(8.0),
+                padding: const EdgeInsets.only(),
                 child: ListTile(
                     leading: CircleAvatar(
                       backgroundColor: Colors.white,
                       child: Icon(
                         Icons.people,
-                        size: 30,
+                        size: 25,
+                        color: Colors.indigo,
                       ),
                     ),
                     title: Text(
                       'Profile',
                       style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black54),
+                        fontSize: 16,
+                      ),
                     ),
                     onTap: () {
                       _allpatientDat != null
@@ -311,24 +333,56 @@ class _ServicesScreenState extends State<ServicesScreen> {
                             );
                     }),
               ),
+              Divider(),
+              ListTile(
+                leading: Icon(Icons.message, color: Colors.indigo),
+                title: Text('Inbox'),
+                onTap: () {
+                  Navigator.of(context).pushNamed(InboxScreen.routeName);
+                },
+              ),
+              Divider(),
+              ListTile(
+                leading: Icon(
+                  Icons.history,
+                  color: Colors.indigo,
+                ),
+                title: Text('History'),
+                onTap: () {
+                  Navigator.of(context)..pushNamed(HistoryScreen.routeName);
+                },
+              ),
+              Divider(),
+              ListTile(
+                title: Text('Privacy policy'),
+                leading: Icon(
+                  Icons.home,
+                  color: Colors.indigo,
+                ),
+                onTap: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (_) => PrivacyPolicyScreen(),
+                    ),
+                  );
+                },
+              ),
+              Divider(),
               Padding(
                 padding: const EdgeInsets.only(
-                  top: 2,
                   bottom: 0,
-                  left: 10,
                 ),
                 child: ListTile(
                   leading: Icon(
                     Icons.logout,
-                    color: Colors.blue,
+                    color: Colors.indigo,
                     size: 24,
                   ),
                   title: Text(
                     'Log out',
                     overflow: TextOverflow.ellipsis,
                     style: TextStyle(
-                      fontSize: 18,
-                      color: Colors.black54,
+                      fontSize: 16,
                     ),
                   ),
                   onTap: () async {
@@ -337,6 +391,32 @@ class _ServicesScreenState extends State<ServicesScreen> {
                     _logindata.clear();
                     Navigator.of(context).pushReplacement(
                         MaterialPageRoute(builder: (_) => SignInScreen()));
+                  },
+                ),
+              ),
+              Divider(),
+              Padding(
+                padding: const EdgeInsets.only(
+                  bottom: 0,
+                ),
+                child: ListTile(
+                  leading: Icon(
+                    Icons.call,
+                    color: Colors.indigo,
+                    size: 24,
+                  ),
+                  title: Text(
+                    'Contact Us',
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(
+                      fontSize: 16,
+                    ),
+                  ),
+                  onTap: () async {
+                    _launched = _makePhoneCall('tel:03157439959');
+
+                    //Navigator.of(context).pushReplacement(
+                    //  MaterialPageRoute(builder: (_) => SignInScreen()));
                   },
                 ),
               ),

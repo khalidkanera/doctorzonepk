@@ -207,7 +207,7 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
                                     image: (_doctors[0]['pd_pic'] != '' ||
                                             _doctors[0]['pd_pic'] != null)
                                         ? NetworkImage(
-                                            '${Ip.serverip2}/uploads/${_doctors[0]['pd_pic']}',
+                                            '${Ip.serverip3}/doctorimg_upload/${_doctors[0]['pd_pic']}',
                                           )
                                         : AssetImage(
                                             'asset/user.png',
@@ -411,32 +411,40 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
                 ),
                 Padding(
                   padding: const EdgeInsets.only(top: 30),
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      padding:
-                          EdgeInsets.symmetric(vertical: 18, horizontal: 25),
-                      primary: Colors.indigo.shade600,
-                    ),
-                    onPressed: () {
-                      Navigator.of(context).pushNamed(
-                          GetAppointmentScreen.routeName,
-                          arguments: {
-                            'uID': uID,
-                            'clinic': _clinicname,
-                            'date': _selectedDate,
-                            'cliniid': _clinicid,
-                            'dtitle': _title,
-                          });
-                      print({uID});
-                      print(_clinicname);
-                      print('Selecteddate:$_selectedDate');
-                      print('Clinic id:$_clinicid');
-                    },
-                    child: Text(
-                      'Proceed to Appointment',
-                      style: TextStyle(fontSize: 18, color: Colors.white),
-                    ),
-                  ),
+                  child: _infoText == 'Doctor is not available for today'
+                      ? ElevatedButton(
+                          child: Text('Poceed to appointment'),
+                          style: ElevatedButton.styleFrom(
+                              padding: EdgeInsets.symmetric(
+                                  vertical: 18, horizontal: 25),
+                              primary: Colors.grey),
+                          onPressed: () {})
+                      : ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            padding: EdgeInsets.symmetric(
+                                vertical: 18, horizontal: 25),
+                            primary: Colors.indigo.shade600,
+                          ),
+                          onPressed: () {
+                            Navigator.of(context).pushNamed(
+                                GetAppointmentScreen.routeName,
+                                arguments: {
+                                  'uID': uID,
+                                  'clinic': _clinicname,
+                                  'date': _selectedDate,
+                                  'cliniid': _clinicid,
+                                  'dtitle': _title,
+                                });
+                            print({uID});
+                            print(_clinicname);
+                            print('Selecteddate:$_selectedDate');
+                            print('Clinic id:$_clinicid');
+                          },
+                          child: Text(
+                            'Proceed to Appointment',
+                            style: TextStyle(fontSize: 18, color: Colors.white),
+                          ),
+                        ),
                 ),
               ],
             ),

@@ -252,7 +252,7 @@ class _GetAppointmentScreenState extends State<GetAppointmentScreen> {
                                           //     '${Ip.serverip2}/uploads/${_doctors[0]["pd_pic"]}',
                                           //   )
                                           : NetworkImage(
-                                              '${Ip.serverip2}/uploads/${_doctors[0]["pd_pic"]}',
+                                              '${Ip.serverip3}/doctorimg_upload/${_doctors[0]["pd_pic"]}',
                                             ),
                                       fit: BoxFit.fill),
                                 ),
@@ -597,8 +597,9 @@ class _GetAppointmentScreenState extends State<GetAppointmentScreen> {
 
                                       await addAppointmentData(
                                         GetAppointmentModel(
-                                          patientname: _PatientName.text,
-                                          patientphone: _PhoneNumber.text,
+                                          patientname: _PatientName.text.trim(),
+                                          patientphone:
+                                              _PhoneNumber.text.trim(),
                                           patientgender: _gender == Gender.Male
                                               ? '1'
                                               : _gender == Gender.Female

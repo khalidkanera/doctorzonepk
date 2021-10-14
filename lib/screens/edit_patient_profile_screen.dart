@@ -412,13 +412,11 @@ class _EditUserProfileScreenState extends State<EditUserProfileScreen> {
                                     primary: Colors.indigo),
                                 child: _selectedDate == null
                                     ? Text('تاریخ پیدائش منتخب کریں')
-                                    : Text(
-                                        DateFormat.yMMMEd().format(
-                                          DateTime.parse(_selectedDate),
-                                        ),
-                                      ),
-                                onPressed: () {
-                                  showDatePicker(
+                                    : _selectedDate == 'null'
+                                        ? Text('تاریخ پیدائش منتخب کریں')
+                                        : Text(_selectedDate).toString(),
+                                onPressed: () async {
+                                  await showDatePicker(
                                           context: context,
                                           initialDate: DateTime.now(),
                                           firstDate: DateTime(1947),

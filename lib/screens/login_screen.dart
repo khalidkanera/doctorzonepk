@@ -17,7 +17,7 @@ class SignInScreen extends StatefulWidget {
 
 class _SignInScreenState extends State<SignInScreen> {
   bool _isloading = true;
- // bool _submit = false;
+  // bool _submit = false;
   bool verifypassword(
     String password,
     String hash,
@@ -140,7 +140,10 @@ class _SignInScreenState extends State<SignInScreen> {
                                   labelText: 'Username/فون نمبر یا نام',
                                   hintText: ' 0302 xxxx234',
                                   labelStyle: TextStyle(),
-                                  prefixIcon: Icon(Icons.phone),
+                                  prefixIcon: Icon(
+                                    Icons.phone,
+                                    color: Colors.indigo.shade900,
+                                  ),
                                 ),
                                 textInputAction: TextInputAction.next,
                                 onFieldSubmitted: (_) {},
@@ -175,7 +178,7 @@ class _SignInScreenState extends State<SignInScreen> {
                                   counterText: '',
                                   prefixIcon: Icon(
                                     Icons.lock,
-                                    color: Colors.blueAccent,
+                                    color: Colors.indigo.shade900,
                                   ),
                                   suffixIcon: IconButton(
                                     icon: Icon(_hidePassword

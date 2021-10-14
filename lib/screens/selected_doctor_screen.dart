@@ -1,6 +1,6 @@
 import 'dart:convert';
-import 'package:doctorzone/screens/testscreen.dart';
 import 'package:intl/intl.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '/exception.dart';
 
@@ -64,7 +64,8 @@ class _SelectedDoctorProfileScreenState
   bool _isInit = true;
   // ignore: unused_field
   List<SelectedDoctorProfileModel> _doctors = [];
-
+  // ignore: unused_field
+  Future<void> _launched;
   // ignore: non_constant_identifier_names
   String user_type;
   @override
@@ -99,6 +100,14 @@ class _SelectedDoctorProfileScreenState
     setState(() {
       _isLoading = false;
     });
+  }
+
+  Future<void> _makePhoneCall(String url) async {
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
   }
 
   Widget getRow(String title, String value) {
@@ -166,7 +175,7 @@ class _SelectedDoctorProfileScreenState
                                             'asset/user.png',
                                           )
                                         : NetworkImage(
-                                            '${Ip.serverip2}/uploads/${_data['basic_detail'][0]['pd_pic']}',
+                                            '${Ip.serverip3}/doctorimg_upload/${_data['basic_detail'][0]['pd_pic']}',
                                           ),
                                     fit: BoxFit.fill),
                               ),
@@ -191,12 +200,15 @@ class _SelectedDoctorProfileScreenState
                                         _data['basic_detail'].length == 0
                                             ? ""
                                             : _data['basic_detail'][1]
-                                                        ['title'] ==
-                                                    'None'
+                                                            ['title'] ==
+                                                        'None' ||
+                                                    _data['basic_detail'][1]
+                                                            ['title'] ==
+                                                        'null'
                                                 ? 'Dr. ${_data['basic_detail'][0]['pd_full_name']}'
                                                 : _data['basic_detail'][1]
                                                         ['title'] +
-                                                    ' ' +
+                                                    '  ' +
                                                     _data['basic_detail'][0]
                                                         ['pd_full_name'],
                                         style: TextStyle(
@@ -211,13 +223,35 @@ class _SelectedDoctorProfileScreenState
                                       const EdgeInsets.only(left: 10, top: 5),
                                   child: Row(
                                     children: [
-                                      Text(
-                                        'M.B.B.S , F.C.P.S',
-                                        style: TextStyle(
-                                            fontSize: 17,
-                                            color: Colors.black45),
-                                        overflow: TextOverflow.ellipsis,
+                                      Row(
+                                        children: [
+                                          Text(
+                                            _data['educationofdoctor'].length ==
+                                                    0
+                                                ? ''
+                                                : _data['educationofdoctor']
+                                                            .length ==
+                                                        1
+                                                    ? '${_data['educationofdoctor'][0]['degreeName']}'
+                                                    : _data['educationofdoctor']
+                                                                .length ==
+                                                            2
+                                                        ? '${_data['educationofdoctor'][0]['degreeName']}, ${_data['educationofdoctor'][1]['degreeName']}'
+                                                        : _data['educationofdoctor']
+                                                                    .length ==
+                                                                3
+                                                            ? '${_data['educationofdoctor'][0]['degreeName']}, ${_data['educationofdoctor'][1]['degreeName']}, ${_data['educationofdoctor'][2]['degreeName']}'
+                                                            : '',
+                                          ),
+                                        ],
                                       ),
+                                      // Text(
+                                      //   'M.B.B.S , F.C.P.S',
+                                      //   style: TextStyle(
+                                      //       fontSize: 17,
+                                      //       color: Colors.black45),
+                                      //   overflow: TextOverflow.ellipsis,
+                                      // ),
                                     ],
                                   ),
                                 ),
@@ -226,14 +260,21 @@ class _SelectedDoctorProfileScreenState
                                       const EdgeInsets.only(left: 10, top: 5),
                                   child: Row(
                                     children: [
-                                      Text(
-                                        'Orthopedic',
-                                        style: TextStyle(
-                                            fontSize: 17,
-                                            color: Colors.black45),
-                                        overflow: TextOverflow.ellipsis,
-                                      ),
-                                      Text(',General Surgeon')
+                                      Text(_data['servicesofdoctors'].length ==
+                                              0
+                                          ? ""
+                                          : _data['servicesofdoctors'].length ==
+                                                  1
+                                              ? '${_data['servicesofdoctors'][0]['services']}'
+                                              : _data['servicesofdoctors']
+                                                          .length ==
+                                                      2
+                                                  ? '${_data['servicesofdoctors'][0]['services']},${_data['servicesofdoctors'][1]['services']}'
+                                                  : _data['servicesofdoctors']
+                                                              .length ==
+                                                          3
+                                                      ? '${_data['servicesofdoctors'][0]['services']},${_data['servicesofdoctors'][1]['services']},${_data['servicesofdoctors'][2]['services']}'
+                                                      : '${_data['servicesofdoctors'][0]['services']},${_data['servicesofdoctors'][1]['services']},${_data['servicesofdoctors'][2]['services']},${_data['servicesofdoctors'][3]['services']}'),
                                     ],
                                   ),
                                 ),
@@ -569,15 +610,25 @@ class _SelectedDoctorProfileScreenState
                                                   padding:
                                                       const EdgeInsets.only(
                                                           top: 8.0),
-                                                  child: Text('Monday'),
+                                                  child: _data['clinicofdoctor']
+                                                                  [index][
+                                                              'mondaystatus'] ==
+                                                          'off'
+                                                      ? Text('')
+                                                      : Text('Monday'),
                                                 ),
                                                 Padding(
                                                   padding:
                                                       const EdgeInsets.only(
                                                           left: 5),
-                                                  child: Text(
-                                                    '${DateFormat.jm().format(DateFormat('hh:mm:ss').parse(_data['clinicofdoctor'][index]['mondaystarttiming']))} to ${DateFormat.jm().format(DateFormat('hh:mm:ss').parse(_data['clinicofdoctor'][index]['mondayofftiming']))}',
-                                                  ),
+                                                  child: _data['clinicofdoctor']
+                                                                  [index][
+                                                              'mondaystatus'] ==
+                                                          'off'
+                                                      ? Text('')
+                                                      : Text(
+                                                          '${DateFormat.jm().format(DateFormat('hh:mm:ss').parse(_data['clinicofdoctor'][index]['mondaystarttiming']))} to ${DateFormat.jm().format(DateFormat('hh:mm:ss').parse(_data['clinicofdoctor'][index]['mondayofftiming']))}',
+                                                        ),
                                                 ),
                                               ],
                                             ),
@@ -591,14 +642,24 @@ class _SelectedDoctorProfileScreenState
                                               padding: const EdgeInsets.only(
                                                 top: 10.0,
                                               ),
-                                              child: Text('Tuesday'),
+                                              child: _data['clinicofdoctor']
+                                                              [index]
+                                                          ['tuesdaystatus'] ==
+                                                      'off'
+                                                  ? Text('')
+                                                  : Text('Tuesday'),
                                             ),
                                             Padding(
                                               padding: const EdgeInsets.only(
                                                   right: 5),
-                                              child: Text(
-                                                '${DateFormat.jm().format(DateFormat('hh:mm:ss').parse(_data['clinicofdoctor'][index]['tuesdaystarttiming']))} to ${DateFormat.jm().format(DateFormat('hh:mm:ss').parse(_data['clinicofdoctor'][index]['tuesdayofftiming']))}',
-                                              ),
+                                              child: _data['clinicofdoctor']
+                                                              [index]
+                                                          ['tuesdaystatus'] ==
+                                                      'off'
+                                                  ? Text('')
+                                                  : Text(
+                                                      '${DateFormat.jm().format(DateFormat('hh:mm:ss').parse(_data['clinicofdoctor'][index]['tuesdaystarttiming']))} to ${DateFormat.jm().format(DateFormat('hh:mm:ss').parse(_data['clinicofdoctor'][index]['tuesdayofftiming']))}',
+                                                    ),
                                             ),
                                           ],
                                         ),
@@ -609,14 +670,24 @@ class _SelectedDoctorProfileScreenState
                                             Padding(
                                               padding: const EdgeInsets.only(
                                                   top: 10.0),
-                                              child: Text('  Wednesday'),
+                                              child: _data['clinicofdoctor']
+                                                              [index]
+                                                          ['Wednesdaystatus'] ==
+                                                      'off'
+                                                  ? Text('')
+                                                  : Text('  Wednesday'),
                                             ),
                                             Padding(
                                               padding: const EdgeInsets.only(
                                                   right: 10),
-                                              child: Text(
-                                                '${DateFormat.jm().format(DateFormat('hh:mm:ss').parse(_data['clinicofdoctor'][index]['wednesdaystarttiming']))} to ${DateFormat.jm().format(DateFormat('hh:mm:ss').parse(_data['clinicofdoctor'][index]['wednesdayofftiming']))}',
-                                              ),
+                                              child: _data['clinicofdoctor']
+                                                              [index]
+                                                          ['wednesdaystatus'] ==
+                                                      'off'
+                                                  ? Text('')
+                                                  : Text(
+                                                      '${DateFormat.jm().format(DateFormat('hh:mm:ss').parse(_data['clinicofdoctor'][index]['wednesdaystarttiming']))} to ${DateFormat.jm().format(DateFormat('hh:mm:ss').parse(_data['clinicofdoctor'][index]['wednesdayofftiming']))}',
+                                                    ),
                                             ),
                                           ],
                                         ),
@@ -624,17 +695,22 @@ class _SelectedDoctorProfileScreenState
                                           mainAxisAlignment:
                                               MainAxisAlignment.spaceAround,
                                           children: [
+                                            _data['clinicofdoctor'][index]
+                                                        ['thursdaystatus'] ==
+                                                    'off'
+                                                ? Text('')
+                                                : Text('Thursday'),
                                             Padding(
                                               padding: const EdgeInsets.only(
                                                   top: 8.0),
-                                              child: Text('Thursday'),
-                                            ),
-                                            Padding(
-                                              padding: const EdgeInsets.only(
-                                                  top: 8.0),
-                                              child: Text(
-                                                '${DateFormat.jm().format(DateFormat('hh:mm:ss').parse(_data['clinicofdoctor'][index]['thursdaystarttiming']))} to ${DateFormat.jm().format(DateFormat('hh:mm:ss').parse(_data['clinicofdoctor'][index]['thursdayofftiming']))}',
-                                              ),
+                                              child: _data['clinicofdoctor']
+                                                              [index]
+                                                          ['thursdaystatus'] ==
+                                                      'off'
+                                                  ? Text('')
+                                                  : Text(
+                                                      '${DateFormat.jm().format(DateFormat('hh:mm:ss').parse(_data['clinicofdoctor'][index]['thursdaystarttiming']))} to ${DateFormat.jm().format(DateFormat('hh:mm:ss').parse(_data['clinicofdoctor'][index]['thursdayofftiming']))}',
+                                                    ),
                                             ),
                                           ],
                                         ),
@@ -647,14 +723,24 @@ class _SelectedDoctorProfileScreenState
                                             Padding(
                                               padding: const EdgeInsets.only(
                                                   top: 8, right: 3.0),
-                                              child: Text('Friday'),
+                                              child: _data['clinicofdoctor']
+                                                              [index]
+                                                          ['fridaystatus'] ==
+                                                      'off'
+                                                  ? Text('')
+                                                  : Text('Friday'),
                                             ),
                                             Padding(
                                               padding: const EdgeInsets.only(
                                                   top: 8.0),
-                                              child: Text(
-                                                '${DateFormat.jm().format(DateFormat('hh:mm:ss').parse(_data['clinicofdoctor'][index]['fridaystarttiming']))} to ${DateFormat.jm().format(DateFormat('hh:mm:ss').parse(_data['clinicofdoctor'][index]['fridayofftiming']))}',
-                                              ),
+                                              child: _data['clinicofdoctor']
+                                                              [index]
+                                                          ['fridaystatus'] ==
+                                                      'off'
+                                                  ? Text('')
+                                                  : Text(
+                                                      '${DateFormat.jm().format(DateFormat('hh:mm:ss').parse(_data['clinicofdoctor'][index]['fridaystarttiming']))} to ${DateFormat.jm().format(DateFormat('hh:mm:ss').parse(_data['clinicofdoctor'][index]['fridayofftiming']))}',
+                                                    ),
                                             ),
                                           ],
                                         ),
@@ -667,14 +753,24 @@ class _SelectedDoctorProfileScreenState
                                             Padding(
                                               padding: const EdgeInsets.only(
                                                   top: 10),
-                                              child: Text('Saturday'),
+                                              child: _data['clinicofdoctor']
+                                                              [index]
+                                                          ['Saturdaystatus'] ==
+                                                      'off'
+                                                  ? Text('')
+                                                  : Text('Saturday'),
                                             ),
                                             Padding(
                                               padding: const EdgeInsets.only(
                                                   top: 8.0),
-                                              child: Text(
-                                                '${DateFormat.jm().format(DateFormat('hh:mm:ss').parse(_data['clinicofdoctor'][index]['saturdaystarttiming']))} to ${DateFormat.jm().format(DateFormat('hh:mm:ss').parse(_data['clinicofdoctor'][index]['saturdayofftiming']))}',
-                                              ),
+                                              child: _data['clinicofdoctor']
+                                                              [index]
+                                                          ['Saturdaystatus'] ==
+                                                      'off'
+                                                  ? Text('')
+                                                  : Text(
+                                                      '${DateFormat.jm().format(DateFormat('hh:mm:ss').parse(_data['clinicofdoctor'][index]['saturdaystarttiming']))} to ${DateFormat.jm().format(DateFormat('hh:mm:ss').parse(_data['clinicofdoctor'][index]['saturdayofftiming']))}',
+                                                    ),
                                             ),
                                           ],
                                         ),
@@ -687,14 +783,24 @@ class _SelectedDoctorProfileScreenState
                                             Padding(
                                               padding: const EdgeInsets.only(
                                                   top: 10.0),
-                                              child: Text('Sunday'),
+                                              child: _data['clinicofdoctor']
+                                                              [index]
+                                                          ['Sundaystatus'] ==
+                                                      'off'
+                                                  ? Text('')
+                                                  : Text('Sunday'),
                                             ),
                                             Padding(
                                               padding: const EdgeInsets.only(
                                                   top: 9.0),
-                                              child: Text(
-                                                '${DateFormat.jm().format(DateFormat('hh:mm:ss').parse(_data['clinicofdoctor'][index]['sundaystarttiming']))} to ${DateFormat.jm().format(DateFormat('hh:mm:ss').parse(_data['clinicofdoctor'][index]['sundayofftiming']))}',
-                                              ),
+                                              child: _data['clinicofdoctor']
+                                                              [index]
+                                                          ['Sundaystatus'] ==
+                                                      'off'
+                                                  ? Text('')
+                                                  : Text(
+                                                      '${DateFormat.jm().format(DateFormat('hh:mm:ss').parse(_data['clinicofdoctor'][index]['sundaystarttiming']))} to ${DateFormat.jm().format(DateFormat('hh:mm:ss').parse(_data['clinicofdoctor'][index]['sundayofftiming']))}',
+                                                    ),
                                             ),
                                           ],
                                         ),
@@ -1138,9 +1244,12 @@ class _SelectedDoctorProfileScreenState
                           padding: EdgeInsets.symmetric(
                               horizontal: 40, vertical: 14),
                           primary: Colors.blue.shade900),
-                      onPressed: () {
-                        Navigator.of(context)
-                            .popAndPushNamed(TestScreen.routeName);
+                      onPressed: () async {
+                        setState(() async {
+                          _launched = _makePhoneCall('tel:03157439959');
+                        });
+                        // Navigator.of(context)
+                        //     .popAndPushNamed(TestScreen.routeName);
                       },
                       child: Text('Helpline'),
                     ),
