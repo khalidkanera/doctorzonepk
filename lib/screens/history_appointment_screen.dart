@@ -19,7 +19,6 @@ class _HistoryScreenState extends State<HistoryScreen> {
   var id;
   var _isappexpanaded = true;
 
-
   @override
   void didChangeDependencies() async {
     _isloading = true;
@@ -183,17 +182,14 @@ class _HistoryScreenState extends State<HistoryScreen> {
                               ),
                               DataCell(
                                 Text(
-                                    '${DateFormat.yMMMMd().format(
-                                      DateTime.parse(
-                                        _data['server_data'][index]
-                                            ['appointmentdate'],
-                                      ),
-                                    )}'
-                                        .toString(),
-                                    style: TextStyle(
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.black54)),
+                                  '${DateFormat.yMMMMd().format(
+                                    DateTime.parse(
+                                      _data['server_data'][index]
+                                          ['appointmentdate'],
+                                    ),
+                                  )}'
+                                      .toString(),
+                                ),
                               ),
                             ],
                           ),
@@ -208,10 +204,6 @@ class _HistoryScreenState extends State<HistoryScreen> {
                               DataCell(
                                 Text(
                                   '${_data['server_data'][index]['appointmenttime']}',
-                                  style: TextStyle(
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.black54),
                                 ),
                               ),
                             ],
@@ -240,17 +232,19 @@ class _HistoryScreenState extends State<HistoryScreen> {
                               DataCell(
                                 Text(
                                   'Hospital/Clinic',
-                                  style: TextStyle(fontWeight: FontWeight.bold),
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                  ),
                                 ),
                               ),
                               DataCell(
-                                Text(
-                                  '${_data['server_data'][index]['name']}',
-                                  style: TextStyle(
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.black54),
-                                ),
+                                Text('${_data['server_data'][index]['name']}',
+                                    style: TextStyle(
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.black54),
+                                    maxLines: 2,
+                                    overflow: TextOverflow.clip),
                               ),
                             ],
                           ),
@@ -266,12 +260,12 @@ class _HistoryScreenState extends State<HistoryScreen> {
                                 Padding(
                                   padding: const EdgeInsets.only(bottom: 10),
                                   child: Text(
-                                    '${_data['server_data'][index]['address']}',
-                                    style: TextStyle(
-                                        fontSize: 18,
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.black54),
-                                  ),
+                                      '${_data['server_data'][index]['address']}',
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.black54),
+                                      maxLines: 2,
+                                      overflow: TextOverflow.clip),
                                 ),
                               ),
                             ],

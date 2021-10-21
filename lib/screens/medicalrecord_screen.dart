@@ -17,11 +17,14 @@ class MedicalRecordScreen extends StatefulWidget {
 
 class _MedicalRecordState extends State<MedicalRecordScreen> {
   SharedPreferences userdata;
-  var id = '';
+  var id;
+  bool _isInit = true;
   void didchangeDependencies() async {
-    userdata = await SharedPreferences.getInstance();
-    id = userdata.getString('id');
-    print('iddddd:$id');
+    if (_isInit) {
+      userdata = await SharedPreferences.getInstance();
+      id = userdata.getString('id');
+      print('iddddd:$id');
+    }
     super.didChangeDependencies();
   }
 
@@ -33,7 +36,7 @@ class _MedicalRecordState extends State<MedicalRecordScreen> {
     );
     setState(() {
       _image = File(imageFile.path);
-      print(_image);
+      print('image:$_image');
     });
   }
 
@@ -43,7 +46,7 @@ class _MedicalRecordState extends State<MedicalRecordScreen> {
     );
     setState(() {
       _image = File(imageFile.path);
-      print('$_image');
+      print('image:$_image');
     });
   }
 
@@ -137,7 +140,8 @@ class _MedicalRecordState extends State<MedicalRecordScreen> {
                   style: ElevatedButton.styleFrom(primary: Colors.indigo),
                   child: Text(' تصویر اپ لوڈ کریں'),
                   onPressed: () async {
-                    showModalBottomSheet(
+                    print(id);
+                    await showModalBottomSheet(
                       context: context,
                       builder: (ctx) => SafeArea(
                         child: Wrap(
@@ -159,6 +163,7 @@ class _MedicalRecordState extends State<MedicalRecordScreen> {
 
                                   return;
                                 }
+                                print('puid:$id');
                                 await MedicalService().addmedicalrecord(
                                   MedicalModal(
                                       imageBase64: base64Encode(
@@ -166,6 +171,7 @@ class _MedicalRecordState extends State<MedicalRecordScreen> {
                                       imagename: _image.path.split('/').last,
                                       puid: id),
                                 );
+
                                 setState(() {
                                   _image = null;
                                 });
@@ -176,6 +182,8 @@ class _MedicalRecordState extends State<MedicalRecordScreen> {
                               title: Text('Gallery'),
                               onTap: () async {
                                 await getImagefromgallery();
+                                print(
+                                    'ID After Selecting image from Gallery : $id');
                                 Navigator.of(context).pop();
                                 if (_image == null) {
                                   ScaffoldMessenger.of(context).showSnackBar(

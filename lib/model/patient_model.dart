@@ -42,6 +42,7 @@ class PatientModel {
 
   Map<String, dynamic> tojsonAdd() {
     return {
+      'pd_id': id,
       'pd_uID': uID,
       'pd_full_name': full_name,
       'pd_gender': gender,

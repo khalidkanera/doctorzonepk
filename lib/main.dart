@@ -3,7 +3,6 @@ import 'dart:io';
 
 import 'package:doctorzone/screens/history_appointment_screen.dart';
 import 'package:doctorzone/screens/inbox_screen.dart';
-
 import './screens/getappointment_screen.dart';
 import './screens/previous_medicalrecord_screen.dart';
 import 'package:flutter/services.dart';
@@ -24,6 +23,7 @@ import './screens/login_screen.dart';
 import './screens/signup_screen.dart';
 import './screens/services_screen.dart';
 import './screens/patient_profile_screen.dart';
+//import 'package:flutter_sms/flutter_sms.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -44,6 +44,7 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   SharedPreferences _logindata;
   String _uID;
+
   bool _isLoading = true;
   bool _isInit = true;
   Future didChangeDependencies() async {

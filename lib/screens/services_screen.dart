@@ -191,8 +191,6 @@ class _ServicesScreenState extends State<ServicesScreen> {
       _email = _allpatientDat.email;
       _name = _allpatientDat.full_name;
       _pic2 = _allpatientDat.pic;
-
-      print(_pic2);
     } catch (e) {
       print(e);
     }
@@ -278,21 +276,13 @@ class _ServicesScreenState extends State<ServicesScreen> {
                 child: UserAccountsDrawerHeader(
                   currentAccountPicture: CircleAvatar(
                     radius: 100,
+                    backgroundImage: NetworkImage('$_pic2', scale: 1),
                     backgroundColor: Colors.white,
-                    backgroundImage: NetworkImage('$_pic2'),
-                    // child: Text(
-                    //   _name == null ? '' : _name[0].toUpperCase(),
-                    //   overflow: TextOverflow.ellipsis,
-                    //   style: TextStyle(
-                    //     fontSize: 27,
-                    //     color: Colors.black,
-                    //   ),
-                    // ),
                   ),
                   accountEmail: Text(
                     _name == null ? "" : _name.toString(),
                     style: TextStyle(
-                      fontSize: 18,
+                      fontSize: 16,
                     ),
                   ),
                   accountName: Text(

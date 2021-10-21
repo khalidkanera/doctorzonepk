@@ -410,11 +410,9 @@ class _EditUserProfileScreenState extends State<EditUserProfileScreen> {
                               child: ElevatedButton(
                                 style: ElevatedButton.styleFrom(
                                     primary: Colors.indigo),
-                                child: _selectedDate == null
+                                child: _selectedDate == 'null'
                                     ? Text('تاریخ پیدائش منتخب کریں')
-                                    : _selectedDate == 'null'
-                                        ? Text('تاریخ پیدائش منتخب کریں')
-                                        : Text(_selectedDate).toString(),
+                                    : Text(_selectedDate.toString()),
                                 onPressed: () async {
                                   await showDatePicker(
                                           context: context,

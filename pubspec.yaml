@@ -31,7 +31,8 @@ dependencies:
   permission_handler: ^3.2.0
   date_picker_timeline: ^1.2.1
   url_launcher: ^5.7.10
-
+  flutter_sms:
+  in_app_update: ^2.0.0
 dev_dependencies:
   flutter_test:
     sdk: flutter
