@@ -199,18 +199,8 @@ class _SelectedDoctorProfileScreenState
                                       child: Text(
                                         _data['basic_detail'].length == 0
                                             ? ""
-                                            : _data['basic_detail'][1]
-                                                            ['title'] ==
-                                                        'None' ||
-                                                    _data['basic_detail'][1]
-                                                            ['title'] ==
-                                                        'null'
-                                                ? 'Dr. ${_data['basic_detail'][0]['pd_full_name']}'
-                                                : _data['basic_detail'][1]
-                                                        ['title'] +
-                                                    '  ' +
-                                                    _data['basic_detail'][0]
-                                                        ['pd_full_name'],
+                                            : _data['basic_detail'][0]
+                                                ['pd_full_name'],
                                         style: TextStyle(color: Colors.black),
                                         overflow: TextOverflow.ellipsis,
                                       ),
@@ -527,8 +517,8 @@ class _SelectedDoctorProfileScreenState
                                           arguments: {
                                             'clinicData':
                                                 _data['clinicofdoctor'][index],
-                                            'dtitle': _data['basic_detail'][1]
-                                                ['title'],
+                                            // 'dtitle': _data['basic_detail'][1]
+                                            //     ['title'],
                                             // 'clinicname':
                                             //     _data['clinicofdoctor'][index]
                                             //         ['clinic'],
@@ -542,32 +532,26 @@ class _SelectedDoctorProfileScreenState
                                     },
                                     title: Column(
                                       children: [
-                                        Row(
-                                          children: [
-                                            Padding(
-                                              padding: const EdgeInsets.only(
-                                                  top: 8.0),
-                                              child: Text(
-                                                _data['clinicofdoctor'][index]
-                                                    ['clinic'],
-                                                style: TextStyle(
-                                                    color:
-                                                        Colors.teal.shade600),
-                                              ),
-                                            ),
-                                          ],
+                                        Padding(
+                                          padding:
+                                              const EdgeInsets.only(top: 8.0),
+                                          child: Text(
+                                            _data['clinicofdoctor'][index]
+                                                ['clinic'],
+                                            maxLines: 2,
+                                            softWrap: true,
+                                            style: TextStyle(
+                                                color: Colors.teal.shade600),
+                                          ),
                                         ),
                                         SizedBox(
                                           height: 10,
                                         ),
-                                        Wrap(
-                                          children: [
-                                            Text(
-                                              _data['clinicofdoctor'][index]
-                                                  ['address'],
-                                              overflow: TextOverflow.clip,
-                                            )
-                                          ],
+                                        Text(
+                                          _data['clinicofdoctor'][index]
+                                              ['address'],
+                                          softWrap: true,
+                                          maxLines: 2,
                                         ),
                                         Row(
                                           mainAxisAlignment:
@@ -632,7 +616,23 @@ class _SelectedDoctorProfileScreenState
                                                                     'off'
                                                                 ? Text('')
                                                                 : Text(
-                                                                    '${DateFormat.jm().format(DateFormat('hh:mm:ss').parse(_data['clinicofdoctor'][index]['mondaystarttiming']))} to ${DateFormat.jm().format(DateFormat('hh:mm:ss').parse(_data['clinicofdoctor'][index]['mondayofftiming']))}',
+                                                                    '${DateFormat.jm().format(
+                                                                      DateFormat(
+                                                                              'hh:mm:ss')
+                                                                          .parse(
+                                                                        _data['clinicofdoctor'][index]
+                                                                            [
+                                                                            'mondaystarttiming'],
+                                                                      ),
+                                                                    )} to ${DateFormat.jm().format(
+                                                                      DateFormat(
+                                                                              'hh:mm:ss')
+                                                                          .parse(
+                                                                        _data['clinicofdoctor'][index]
+                                                                            [
+                                                                            'mondayofftiming'],
+                                                                      ),
+                                                                    )}',
                                                                   ),
                                                           ),
                                                         )
@@ -659,7 +659,27 @@ class _SelectedDoctorProfileScreenState
                                                                   'off'
                                                               ? Text('')
                                                               : Text(
-                                                                  '${DateFormat.jm().format(DateFormat('hh:mm:ss').parse(_data['clinicofdoctor'][index]['tuesdaystarttiming']))} to ${DateFormat.jm().format(DateFormat('hh:mm:ss').parse(_data['clinicofdoctor'][index]['mondayofftiming']))}',
+                                                                  '${DateFormat.jm().format(
+                                                                    DateFormat(
+                                                                            'hh:mm:ss')
+                                                                        .parse(
+                                                                      _data['clinicofdoctor']
+                                                                              [
+                                                                              index]
+                                                                          [
+                                                                          'tuesdaystarttiming'],
+                                                                    ),
+                                                                  )} to ${DateFormat.jm().format(
+                                                                    DateFormat(
+                                                                            'hh:mm:ss')
+                                                                        .parse(
+                                                                      _data['clinicofdoctor']
+                                                                              [
+                                                                              index]
+                                                                          [
+                                                                          'tuesdayofftiming'],
+                                                                    ),
+                                                                  )}',
                                                                 ),
                                                         ),
                                                       ],
@@ -671,10 +691,11 @@ class _SelectedDoctorProfileScreenState
                                                                           [
                                                                           index]
                                                                       [
-                                                                      'tuesdaystatus'] ==
+                                                                      'wednesdaystatus'] ==
                                                                   'off'
                                                               ? Text('')
-                                                              : Text('Tuesday'),
+                                                              : Text(
+                                                                  'Wednesday'),
                                                         ),
                                                         DataCell(
                                                           _data['clinicofdoctor']
@@ -685,7 +706,213 @@ class _SelectedDoctorProfileScreenState
                                                                   'off'
                                                               ? Text('')
                                                               : Text(
-                                                                  '${DateFormat.jm().format(DateFormat('hh:mm:ss').parse(_data['clinicofdoctor'][index]['wednesdaystarttiming']))} to ${DateFormat.jm().format(DateFormat('hh:mm:ss').parse(_data['clinicofdoctor'][index]['mondayofftiming']))}',
+                                                                  '${DateFormat.jm().format(
+                                                                    DateFormat(
+                                                                            'hh:mm:ss')
+                                                                        .parse(
+                                                                      _data['clinicofdoctor']
+                                                                              [
+                                                                              index]
+                                                                          [
+                                                                          'wednesdaystarttiming'],
+                                                                    ),
+                                                                  )} to ${DateFormat.jm().format(
+                                                                    DateFormat(
+                                                                            'hh:mm:ss')
+                                                                        .parse(
+                                                                      _data['clinicofdoctor']
+                                                                              [
+                                                                              index]
+                                                                          [
+                                                                          'wednesdayofftiming'],
+                                                                    ),
+                                                                  )}',
+                                                                ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                    DataRow(
+                                                      cells: <DataCell>[
+                                                        DataCell(
+                                                          _data['clinicofdoctor']
+                                                                          [
+                                                                          index]
+                                                                      [
+                                                                      'thursdaystatus'] ==
+                                                                  'off'
+                                                              ? Text('')
+                                                              : Text(
+                                                                  'Thursday'),
+                                                        ),
+                                                        DataCell(
+                                                          _data['clinicofdoctor']
+                                                                          [
+                                                                          index]
+                                                                      [
+                                                                      'thursdaystatus'] ==
+                                                                  'off'
+                                                              ? Text('')
+                                                              : Text(
+                                                                  '${DateFormat.jm().format(
+                                                                    DateFormat(
+                                                                            'hh:mm:ss')
+                                                                        .parse(
+                                                                      _data['clinicofdoctor']
+                                                                              [
+                                                                              index]
+                                                                          [
+                                                                          'thursdaystarttiming'],
+                                                                    ),
+                                                                  )} to ${DateFormat.jm().format(
+                                                                    DateFormat(
+                                                                            'hh:mm:ss')
+                                                                        .parse(
+                                                                      _data['clinicofdoctor']
+                                                                              [
+                                                                              index]
+                                                                          [
+                                                                          'thursdayofftiming'],
+                                                                    ),
+                                                                  )}',
+                                                                ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                    DataRow(
+                                                      cells: <DataCell>[
+                                                        DataCell(
+                                                          _data['clinicofdoctor']
+                                                                          [
+                                                                          index]
+                                                                      [
+                                                                      'fridaystatus'] ==
+                                                                  'off'
+                                                              ? Text('')
+                                                              : Text('Friday'),
+                                                        ),
+                                                        DataCell(
+                                                          _data['clinicofdoctor']
+                                                                          [
+                                                                          index]
+                                                                      [
+                                                                      'fridaystatus'] ==
+                                                                  'off'
+                                                              ? Text('')
+                                                              : Text(
+                                                                  '${DateFormat.jm().format(
+                                                                    DateFormat(
+                                                                            'hh:mm:ss')
+                                                                        .parse(
+                                                                      _data['clinicofdoctor']
+                                                                              [
+                                                                              index]
+                                                                          [
+                                                                          'fridaystarttiming'],
+                                                                    ),
+                                                                  )} to ${DateFormat.jm().format(
+                                                                    DateFormat(
+                                                                            'hh:mm:ss')
+                                                                        .parse(
+                                                                      _data['clinicofdoctor']
+                                                                              [
+                                                                              index]
+                                                                          [
+                                                                          'fridayofftiming'],
+                                                                    ),
+                                                                  )}',
+                                                                ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                    DataRow(
+                                                      cells: <DataCell>[
+                                                        DataCell(
+                                                          _data['clinicofdoctor']
+                                                                          [
+                                                                          index]
+                                                                      [
+                                                                      'saturdaystatus'] ==
+                                                                  'off'
+                                                              ? Text('')
+                                                              : Text(
+                                                                  'Saturday'),
+                                                        ),
+                                                        DataCell(
+                                                          _data['clinicofdoctor']
+                                                                          [
+                                                                          index]
+                                                                      [
+                                                                      'saturdaystatus'] ==
+                                                                  'off'
+                                                              ? Text('')
+                                                              : Text(
+                                                                  '${DateFormat.jm().format(
+                                                                    DateFormat(
+                                                                            'hh:mm:ss')
+                                                                        .parse(
+                                                                      _data['clinicofdoctor']
+                                                                              [
+                                                                              index]
+                                                                          [
+                                                                          'saturdaystarttiming'],
+                                                                    ),
+                                                                  )} to ${DateFormat.jm().format(
+                                                                    DateFormat(
+                                                                            'hh:mm:ss')
+                                                                        .parse(
+                                                                      _data['clinicofdoctor']
+                                                                              [
+                                                                              index]
+                                                                          [
+                                                                          'saturdayofftiming'],
+                                                                    ),
+                                                                  )}',
+                                                                ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                    DataRow(
+                                                      cells: <DataCell>[
+                                                        DataCell(
+                                                          _data['clinicofdoctor']
+                                                                          [
+                                                                          index]
+                                                                      [
+                                                                      'sundaystatus'] ==
+                                                                  'off'
+                                                              ? Text('')
+                                                              : Text('Sunday'),
+                                                        ),
+                                                        DataCell(
+                                                          _data['clinicofdoctor']
+                                                                          [
+                                                                          index]
+                                                                      [
+                                                                      'sundaystatus'] ==
+                                                                  'off'
+                                                              ? Text('')
+                                                              : Text(
+                                                                  '${DateFormat.jm().format(
+                                                                    DateFormat(
+                                                                            'hh:mm:ss')
+                                                                        .parse(
+                                                                      _data['clinicofdoctor']
+                                                                              [
+                                                                              index]
+                                                                          [
+                                                                          'sundaystarttiming'],
+                                                                    ),
+                                                                  )} to ${DateFormat.jm().format(
+                                                                    DateFormat(
+                                                                            'hh:mm:ss')
+                                                                        .parse(
+                                                                      _data['clinicofdoctor']
+                                                                              [
+                                                                              index]
+                                                                          [
+                                                                          'sundayofftiming'],
+                                                                    ),
+                                                                  )}',
                                                                 ),
                                                         ),
                                                       ],
@@ -698,148 +925,9 @@ class _SelectedDoctorProfileScreenState
                                             ),
                                           ],
                                         ),
-                                        Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceAround,
-                                          children: [
-                                            Padding(
-                                              padding: const EdgeInsets.only(
-                                                  top: 10.0),
-                                              child: _data['clinicofdoctor']
-                                                              [index]
-                                                          ['Wednesdaystatus'] ==
-                                                      'off'
-                                                  ? Text('')
-                                                  : Text('  Wednesday'),
-                                            ),
-                                            Padding(
-                                              padding: const EdgeInsets.only(
-                                                  right: 10),
-                                              child: _data['clinicofdoctor']
-                                                              [index]
-                                                          ['wednesdaystatus'] ==
-                                                      'off'
-                                                  ? Text('')
-                                                  : Text(
-                                                      '${DateFormat.jm().format(DateFormat('hh:mm:ss').parse(_data['clinicofdoctor'][index]['wednesdaystarttiming']))} to ${DateFormat.jm().format(DateFormat('hh:mm:ss').parse(_data['clinicofdoctor'][index]['wednesdayofftiming']))}',
-                                                    ),
-                                            ),
-                                          ],
+                                        Divider(
+                                          thickness: 3,
                                         ),
-                                        Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceAround,
-                                          children: [
-                                            _data['clinicofdoctor'][index]
-                                                        ['thursdaystatus'] ==
-                                                    'off'
-                                                ? Text('')
-                                                : Text('Thursday'),
-                                            Padding(
-                                              padding: const EdgeInsets.only(
-                                                  top: 8.0),
-                                              child: _data['clinicofdoctor']
-                                                              [index]
-                                                          ['thursdaystatus'] ==
-                                                      'off'
-                                                  ? Text('')
-                                                  : Text(
-                                                      '${DateFormat.jm().format(DateFormat('hh:mm:ss').parse(_data['clinicofdoctor'][index]['thursdaystarttiming']))} to ${DateFormat.jm().format(DateFormat('hh:mm:ss').parse(_data['clinicofdoctor'][index]['thursdayofftiming']))}',
-                                                    ),
-                                            ),
-                                          ],
-                                        ),
-                                        Row(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceAround,
-                                          children: [
-                                            Padding(
-                                              padding: const EdgeInsets.only(
-                                                  top: 8, right: 3.0),
-                                              child: _data['clinicofdoctor']
-                                                              [index]
-                                                          ['fridaystatus'] ==
-                                                      'off'
-                                                  ? Text('')
-                                                  : Text('Friday'),
-                                            ),
-                                            Padding(
-                                              padding: const EdgeInsets.only(
-                                                  top: 8.0),
-                                              child: _data['clinicofdoctor']
-                                                              [index]
-                                                          ['fridaystatus'] ==
-                                                      'off'
-                                                  ? Text('')
-                                                  : Text(
-                                                      '${DateFormat.jm().format(DateFormat('hh:mm:ss').parse(_data['clinicofdoctor'][index]['fridaystarttiming']))} to ${DateFormat.jm().format(DateFormat('hh:mm:ss').parse(_data['clinicofdoctor'][index]['fridayofftiming']))}',
-                                                    ),
-                                            ),
-                                          ],
-                                        ),
-                                        Row(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceAround,
-                                          children: [
-                                            Padding(
-                                              padding: const EdgeInsets.only(
-                                                  top: 10),
-                                              child: _data['clinicofdoctor']
-                                                              [index]
-                                                          ['Saturdaystatus'] ==
-                                                      'off'
-                                                  ? Text('')
-                                                  : Text('Saturday'),
-                                            ),
-                                            Padding(
-                                              padding: const EdgeInsets.only(
-                                                  top: 8.0),
-                                              child: _data['clinicofdoctor']
-                                                              [index]
-                                                          ['Saturdaystatus'] ==
-                                                      'off'
-                                                  ? Text('')
-                                                  : Text(
-                                                      '${DateFormat.jm().format(DateFormat('hh:mm:ss').parse(_data['clinicofdoctor'][index]['saturdaystarttiming']))} to ${DateFormat.jm().format(DateFormat('hh:mm:ss').parse(_data['clinicofdoctor'][index]['saturdayofftiming']))}',
-                                                    ),
-                                            ),
-                                          ],
-                                        ),
-                                        Row(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceAround,
-                                          children: [
-                                            Padding(
-                                              padding: const EdgeInsets.only(
-                                                  top: 10.0),
-                                              child: _data['clinicofdoctor']
-                                                              [index]
-                                                          ['Sundaystatus'] ==
-                                                      'off'
-                                                  ? Text('')
-                                                  : Text('Sunday'),
-                                            ),
-                                            Padding(
-                                              padding: const EdgeInsets.only(
-                                                  top: 9.0),
-                                              child: _data['clinicofdoctor']
-                                                              [index]
-                                                          ['Sundaystatus'] ==
-                                                      'off'
-                                                  ? Text('')
-                                                  : Text(
-                                                      '${DateFormat.jm().format(DateFormat('hh:mm:ss').parse(_data['clinicofdoctor'][index]['sundaystarttiming']))} to ${DateFormat.jm().format(DateFormat('hh:mm:ss').parse(_data['clinicofdoctor'][index]['sundayofftiming']))}',
-                                                    ),
-                                            ),
-                                          ],
-                                        ),
-                                        Divider(),
                                       ],
                                     ),
                                   );
@@ -1103,7 +1191,7 @@ class _SelectedDoctorProfileScreenState
                               ],
                             ),
                             Divider(
-                              height: 1,
+                              thickness: 2,
                             ),
                             Row(
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -1318,35 +1406,31 @@ class _SelectedDoctorProfileScreenState
                                                     Text('No Clinic Scheduled'),
                                               )
                                             : Column(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.start,
                                                 children: [
-                                                  Row(
-                                                    children: [
-                                                      Padding(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                .only(top: 8.0),
-                                                        child: Text(
-                                                          _data['clinicofdoctor']
-                                                              [index]['clinic'],
-                                                          style: TextStyle(
-                                                              color: Colors.teal
-                                                                  .shade600),
-                                                        ),
-                                                      ),
-                                                    ],
+                                                  Padding(
+                                                    padding:
+                                                        const EdgeInsets.only(
+                                                            top: 8.0),
+                                                    child: Text(
+                                                      _data['clinicofdoctor']
+                                                          [index]['clinic'],
+                                                      style: TextStyle(
+                                                          color: Colors
+                                                              .teal.shade600),
+                                                      softWrap: true,
+                                                      maxLines: 2,
+                                                    ),
                                                   ),
                                                   SizedBox(
                                                     height: 10,
                                                   ),
-                                                  Wrap(
-                                                    children: [
-                                                      Text(
-                                                        _data['clinicofdoctor']
-                                                            [index]['address'],
-                                                        overflow:
-                                                            TextOverflow.clip,
-                                                      )
-                                                    ],
+                                                  Text(
+                                                    _data['clinicofdoctor']
+                                                        [index]['address'],
+                                                    softWrap: true,
+                                                    maxLines: 2,
                                                   ),
                                                   Row(
                                                     mainAxisAlignment:
@@ -1375,176 +1459,255 @@ class _SelectedDoctorProfileScreenState
                                                         CrossAxisAlignment
                                                             .start,
                                                     children: [
-                                                      Row(
-                                                        mainAxisAlignment:
-                                                            MainAxisAlignment
-                                                                .spaceAround,
-                                                        children: [
-                                                          Padding(
-                                                            padding:
-                                                                const EdgeInsets
-                                                                        .only(
-                                                                    top: 8.0),
-                                                            child:
-                                                                Text('Monday'),
+                                                      DataTable(
+                                                        columns: [
+                                                          DataColumn(
+                                                            label: Text(''),
                                                           ),
-                                                          Padding(
-                                                            padding:
-                                                                const EdgeInsets
-                                                                        .only(
-                                                                    left: 5),
-                                                            child: Text(
-                                                              '${DateFormat.jm().format(DateFormat('hh:mm:ss').parse(_data['clinicofdoctor'][index]['mondaystarttiming']))} to ${DateFormat.jm().format(DateFormat('hh:mm:ss').parse(_data['clinicofdoctor'][index]['mondayofftiming']))}',
-                                                            ),
+                                                          DataColumn(
+                                                            label: Text(''),
+                                                          ),
+                                                        ],
+                                                        rows: <DataRow>[
+                                                          DataRow(
+                                                            cells: <DataCell>[
+                                                              DataCell(
+                                                                _data['clinicofdoctor'][index]
+                                                                            [
+                                                                            'mondaystatus'] ==
+                                                                        'off'
+                                                                    ? Text('')
+                                                                    : Text(
+                                                                        'Monday'),
+                                                              ),
+                                                              DataCell(
+                                                                Padding(
+                                                                  padding: const EdgeInsets
+                                                                          .only(
+                                                                      left: 5),
+                                                                  child: _data['clinicofdoctor'][index]
+                                                                              [
+                                                                              'mondaystatus'] ==
+                                                                          'off'
+                                                                      ? Text('')
+                                                                      : Text(
+                                                                          '${DateFormat.jm().format(
+                                                                            DateFormat('hh:mm:ss').parse(
+                                                                              _data['clinicofdoctor'][index]['mondaystarttiming'],
+                                                                            ),
+                                                                          )} to ${DateFormat.jm().format(
+                                                                            DateFormat('hh:mm:ss').parse(
+                                                                              _data['clinicofdoctor'][index]['mondayofftiming'],
+                                                                            ),
+                                                                          )}',
+                                                                        ),
+                                                                ),
+                                                              )
+                                                            ],
+                                                          ),
+                                                          DataRow(
+                                                            cells: <DataCell>[
+                                                              DataCell(
+                                                                _data['clinicofdoctor'][index]
+                                                                            [
+                                                                            'tuesdaystatus'] ==
+                                                                        'off'
+                                                                    ? Text('')
+                                                                    : Text(
+                                                                        'Tuesday'),
+                                                              ),
+                                                              DataCell(
+                                                                _data['clinicofdoctor'][index]
+                                                                            [
+                                                                            'tuesdaystatus'] ==
+                                                                        'off'
+                                                                    ? Text('')
+                                                                    : Text(
+                                                                        '${DateFormat.jm().format(
+                                                                          DateFormat('hh:mm:ss')
+                                                                              .parse(
+                                                                            _data['clinicofdoctor'][index]['tuesdaystarttiming'],
+                                                                          ),
+                                                                        )} to ${DateFormat.jm().format(
+                                                                          DateFormat('hh:mm:ss')
+                                                                              .parse(
+                                                                            _data['clinicofdoctor'][index]['tuesdayofftiming'],
+                                                                          ),
+                                                                        )}',
+                                                                      ),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                          DataRow(
+                                                            cells: <DataCell>[
+                                                              DataCell(
+                                                                _data['clinicofdoctor'][index]
+                                                                            [
+                                                                            'wednesdaystatus'] ==
+                                                                        'off'
+                                                                    ? Text('')
+                                                                    : Text(
+                                                                        'Wednesday'),
+                                                              ),
+                                                              DataCell(
+                                                                _data['clinicofdoctor'][index]
+                                                                            [
+                                                                            'wednesdaystatus'] ==
+                                                                        'off'
+                                                                    ? Text('')
+                                                                    : Text(
+                                                                        '${DateFormat.jm().format(
+                                                                          DateFormat('hh:mm:ss')
+                                                                              .parse(
+                                                                            _data['clinicofdoctor'][index]['wednesdaystarttiming'],
+                                                                          ),
+                                                                        )} to ${DateFormat.jm().format(
+                                                                          DateFormat('hh:mm:ss')
+                                                                              .parse(
+                                                                            _data['clinicofdoctor'][index]['wednesdayofftiming'],
+                                                                          ),
+                                                                        )}',
+                                                                      ),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                          DataRow(
+                                                            cells: <DataCell>[
+                                                              DataCell(
+                                                                _data['clinicofdoctor'][index]
+                                                                            [
+                                                                            'thursdaystatus'] ==
+                                                                        'off'
+                                                                    ? Text('')
+                                                                    : Text(
+                                                                        'Thursday'),
+                                                              ),
+                                                              DataCell(
+                                                                _data['clinicofdoctor'][index]
+                                                                            [
+                                                                            'thursdaystatus'] ==
+                                                                        'off'
+                                                                    ? Text('')
+                                                                    : Text(
+                                                                        '${DateFormat.jm().format(
+                                                                          DateFormat('hh:mm:ss')
+                                                                              .parse(
+                                                                            _data['clinicofdoctor'][index]['thursdaystarttiming'],
+                                                                          ),
+                                                                        )} to ${DateFormat.jm().format(
+                                                                          DateFormat('hh:mm:ss')
+                                                                              .parse(
+                                                                            _data['clinicofdoctor'][index]['thursdayofftiming'],
+                                                                          ),
+                                                                        )}',
+                                                                      ),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                          DataRow(
+                                                            cells: <DataCell>[
+                                                              DataCell(
+                                                                _data['clinicofdoctor'][index]
+                                                                            [
+                                                                            'fridaystatus'] ==
+                                                                        'off'
+                                                                    ? Text('')
+                                                                    : Text(
+                                                                        'Friday'),
+                                                              ),
+                                                              DataCell(
+                                                                _data['clinicofdoctor'][index]
+                                                                            [
+                                                                            'fridaystatus'] ==
+                                                                        'off'
+                                                                    ? Text('')
+                                                                    : Text(
+                                                                        '${DateFormat.jm().format(
+                                                                          DateFormat('hh:mm:ss')
+                                                                              .parse(
+                                                                            _data['clinicofdoctor'][index]['fridaystarttiming'],
+                                                                          ),
+                                                                        )} to ${DateFormat.jm().format(
+                                                                          DateFormat('hh:mm:ss')
+                                                                              .parse(
+                                                                            _data['clinicofdoctor'][index]['fridayofftiming'],
+                                                                          ),
+                                                                        )}',
+                                                                      ),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                          DataRow(
+                                                            cells: <DataCell>[
+                                                              DataCell(
+                                                                _data['clinicofdoctor'][index]
+                                                                            [
+                                                                            'saturdaystatus'] ==
+                                                                        'off'
+                                                                    ? Text('')
+                                                                    : Text(
+                                                                        'Saturday'),
+                                                              ),
+                                                              DataCell(
+                                                                _data['clinicofdoctor'][index]
+                                                                            [
+                                                                            'saturdaystatus'] ==
+                                                                        'off'
+                                                                    ? Text('')
+                                                                    : Text(
+                                                                        '${DateFormat.jm().format(
+                                                                          DateFormat('hh:mm:ss')
+                                                                              .parse(
+                                                                            _data['clinicofdoctor'][index]['saturdaystarttiming'],
+                                                                          ),
+                                                                        )} to ${DateFormat.jm().format(
+                                                                          DateFormat('hh:mm:ss')
+                                                                              .parse(
+                                                                            _data['clinicofdoctor'][index]['saturdayofftiming'],
+                                                                          ),
+                                                                        )}',
+                                                                      ),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                          DataRow(
+                                                            cells: <DataCell>[
+                                                              DataCell(
+                                                                _data['clinicofdoctor'][index]
+                                                                            [
+                                                                            'sundaystatus'] ==
+                                                                        'off'
+                                                                    ? Text('')
+                                                                    : Text(
+                                                                        'Sunday'),
+                                                              ),
+                                                              DataCell(
+                                                                _data['clinicofdoctor'][index]
+                                                                            [
+                                                                            'sundaystatus'] ==
+                                                                        'off'
+                                                                    ? Text('')
+                                                                    : Text(
+                                                                        '${DateFormat.jm().format(
+                                                                          DateFormat('hh:mm:ss')
+                                                                              .parse(
+                                                                            _data['clinicofdoctor'][index]['sundaystarttiming'],
+                                                                          ),
+                                                                        )} to ${DateFormat.jm().format(
+                                                                          DateFormat('hh:mm:ss')
+                                                                              .parse(
+                                                                            _data['clinicofdoctor'][index]['sundayofftiming'],
+                                                                          ),
+                                                                        )}',
+                                                                      ),
+                                                              ),
+                                                            ],
                                                           ),
                                                         ],
                                                       ),
                                                     ],
                                                   ),
-                                                  Row(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .spaceAround,
-                                                    children: [
-                                                      Padding(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                .only(
-                                                          top: 10.0,
-                                                        ),
-                                                        child: Text('Tuesday'),
-                                                      ),
-                                                      Padding(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                .only(right: 5),
-                                                        child: Text(
-                                                          '${DateFormat.jm().format(DateFormat('hh:mm:ss').parse(_data['clinicofdoctor'][index]['tuesdaystarttiming']))} to ${DateFormat.jm().format(DateFormat('hh:mm:ss').parse(_data['clinicofdoctor'][index]['tuesdayofftiming']))}',
-                                                        ),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                  Row(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .spaceAround,
-                                                    children: [
-                                                      Padding(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                    .only(
-                                                                top: 10.0),
-                                                        child:
-                                                            Text('  Wednesday'),
-                                                      ),
-                                                      Padding(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                    .only(
-                                                                right: 10),
-                                                        child: Text(
-                                                          '${DateFormat.jm().format(DateFormat('hh:mm:ss').parse(_data['clinicofdoctor'][index]['wednesdaystarttiming']))} to ${DateFormat.jm().format(DateFormat('hh:mm:ss').parse(_data['clinicofdoctor'][index]['wednesdayofftiming']))}',
-                                                        ),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                  Row(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .spaceAround,
-                                                    children: [
-                                                      Padding(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                .only(top: 8.0),
-                                                        child: Text('Thursday'),
-                                                      ),
-                                                      Padding(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                .only(top: 8.0),
-                                                        child: Text(
-                                                          '${DateFormat.jm().format(DateFormat('hh:mm:ss').parse(_data['clinicofdoctor'][index]['thursdaystarttiming']))} to ${DateFormat.jm().format(DateFormat('hh:mm:ss').parse(_data['clinicofdoctor'][index]['thursdayofftiming']))}',
-                                                        ),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                  Row(
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .start,
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .spaceAround,
-                                                    children: [
-                                                      Padding(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                    .only(
-                                                                top: 8,
-                                                                right: 3.0),
-                                                        child: Text('Friday'),
-                                                      ),
-                                                      Padding(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                .only(top: 8.0),
-                                                        child: Text(
-                                                          '${DateFormat.jm().format(DateFormat('hh:mm:ss').parse(_data['clinicofdoctor'][index]['fridaystarttiming']))} to ${DateFormat.jm().format(DateFormat('hh:mm:ss').parse(_data['clinicofdoctor'][index]['fridayofftiming']))}',
-                                                        ),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                  Row(
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .start,
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .spaceAround,
-                                                    children: [
-                                                      Padding(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                .only(top: 10),
-                                                        child: Text('Saturday'),
-                                                      ),
-                                                      Padding(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                .only(top: 8.0),
-                                                        child: Text(
-                                                          '${DateFormat.jm().format(DateFormat('hh:mm:ss').parse(_data['clinicofdoctor'][index]['saturdaystarttiming']))} to ${DateFormat.jm().format(DateFormat('hh:mm:ss').parse(_data['clinicofdoctor'][index]['saturdayofftiming']))}',
-                                                        ),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                  Row(
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .start,
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .spaceAround,
-                                                    children: [
-                                                      Padding(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                    .only(
-                                                                top: 10.0),
-                                                        child: Text('Sunday'),
-                                                      ),
-                                                      Padding(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                .only(top: 9.0),
-                                                        child: Text(
-                                                          '${DateFormat.jm().format(DateFormat('hh:mm:ss').parse(_data['clinicofdoctor'][index]['sundaystarttiming']))} to ${DateFormat.jm().format(DateFormat('hh:mm:ss').parse(_data['clinicofdoctor'][index]['sundayofftiming']))}',
-                                                        ),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                  Divider(),
+                                                  Divider(thickness: 3),
                                                 ],
                                               ),
                                       ),
@@ -1555,8 +1718,8 @@ class _SelectedDoctorProfileScreenState
                                               'clinicData':
                                                   _data['clinicofdoctor']
                                                       [index],
-                                              'dtitle': _data['basic_detail'][1]
-                                                  ['title'],
+                                              //'dtitle': _data['basic_detail'][1]
+                                              //   ['title'],
                                               'clinicid':
                                                   _data['clinicofdoctor'][index]
                                                       ['clinicids'],

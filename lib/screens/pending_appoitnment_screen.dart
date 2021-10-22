@@ -1,5 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/painting.dart';
 import 'package:intl/intl.dart';
 import '../screens/services_screen.dart';
 import 'package:flutter/material.dart';
@@ -186,8 +188,11 @@ class _PendingAppointmentScreenState extends State<PendingAppointmentScreen> {
               child: CircularProgressIndicator(),
             )
           : Card(
-              margin:
-                  EdgeInsets.only(top: 10, left: 8.0, right: 8.0, bottom: 5),
+              margin: EdgeInsets.only(
+                top: 10,
+                left: 8.0,
+                right: 8.0,
+              ),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -284,7 +289,7 @@ class _PendingAppointmentScreenState extends State<PendingAppointmentScreen> {
                     height: 15,
                   ),
                   Container(
-                    height: MediaQuery.of(context).size.height - 200,
+                    height: MediaQuery.of(context).size.height - 220,
                     child: _data['server_data'].length == 0
                         ? Center(
                             child: Text('No Record Found'),
@@ -312,7 +317,7 @@ class _PendingAppointmentScreenState extends State<PendingAppointmentScreen> {
                                             maxLines: 2,
                                             softWrap: true,
                                             style: TextStyle(
-                                                fontSize: 18,
+                                                fontSize: 16,
                                                 fontWeight: FontWeight.bold),
                                           ),
                                         ),
@@ -332,7 +337,7 @@ class _PendingAppointmentScreenState extends State<PendingAppointmentScreen> {
                                           child: Text(
                                             'Fee Rs. ${_data['server_data'][index]['appoitmentfee']}',
                                             style: TextStyle(
-                                                fontSize: 18,
+                                                fontSize: 16,
                                                 fontWeight: FontWeight.bold),
                                           ),
                                         )
@@ -399,15 +404,16 @@ class _PendingAppointmentScreenState extends State<PendingAppointmentScreen> {
                                               DataCell(
                                                 Text(
                                                   'Appoint.Token:  ',
-                                                  style:
-                                                      TextStyle(fontSize: 15),
+                                                  style: TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.bold),
                                                 ),
                                               ),
                                               DataCell(
                                                 Text(
                                                   '${_data['server_data'][index]['id']}',
                                                   style: TextStyle(
-                                                      fontSize: 15,
+                                                      fontSize: 16,
                                                       fontWeight:
                                                           FontWeight.bold,
                                                       color:
@@ -422,43 +428,43 @@ class _PendingAppointmentScreenState extends State<PendingAppointmentScreen> {
                                                 Text(
                                                   'Appoint.Date :',
                                                   style: TextStyle(
-                                                      fontSize: 15,
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                      color: Colors.black54),
+                                                    fontWeight: FontWeight.bold,
+                                                  ),
                                                 ),
                                               ),
                                               DataCell(
                                                 Text(
-                                                    '${DateFormat.yMMMMd().format(
-                                                      DateTime.parse(
-                                                        _data['server_data']
-                                                                [index]
-                                                            ['appointmentdate'],
-                                                      ),
-                                                    )}'
-                                                        .toString(),
-                                                    style: TextStyle(
-                                                        fontSize: 16,
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                        color: Colors.black54)),
+                                                  '${DateFormat.yMMMMd().format(
+                                                    DateTime.parse(
+                                                      _data['server_data']
+                                                              [index]
+                                                          ['appointmentdate'],
+                                                    ),
+                                                  )}'
+                                                      .toString(),
+                                                  style: TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.bold),
+                                                ),
                                               ),
                                             ],
                                           ),
                                           DataRow(
                                             cells: <DataCell>[
                                               DataCell(
-                                                Text('Appoint.Time:'),
+                                                Text(
+                                                  'Appoint.Time:',
+                                                  style: TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.bold),
+                                                ),
                                               ),
                                               DataCell(
                                                 Text(
                                                   '${_data['server_data'][index]['appointmenttime']}',
                                                   style: TextStyle(
-                                                      fontSize: 18,
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                      color: Colors.black54),
+                                                    fontWeight: FontWeight.bold,
+                                                  ),
                                                 ),
                                               ),
                                             ],
@@ -466,16 +472,19 @@ class _PendingAppointmentScreenState extends State<PendingAppointmentScreen> {
                                           DataRow(
                                             cells: <DataCell>[
                                               DataCell(
-                                                Text('Your phone:'),
+                                                Text(
+                                                  'Your phone:',
+                                                  style: TextStyle(
+                                                    fontWeight: FontWeight.bold,
+                                                  ),
+                                                ),
                                               ),
                                               DataCell(
                                                 Text(
                                                   '${_data['server_data'][index]['pd_cell_no']}',
                                                   style: TextStyle(
-                                                      fontSize: 18,
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                      color: Colors.black54),
+                                                    fontWeight: FontWeight.bold,
+                                                  ),
                                                 ),
                                               ),
                                             ],
@@ -483,16 +492,19 @@ class _PendingAppointmentScreenState extends State<PendingAppointmentScreen> {
                                           DataRow(
                                             cells: <DataCell>[
                                               DataCell(
-                                                Text('Hospital/Clinic:'),
+                                                Text(
+                                                  'Hospital/Clinic:',
+                                                  style: TextStyle(
+                                                    fontWeight: FontWeight.bold,
+                                                  ),
+                                                ),
                                               ),
                                               DataCell(
                                                 Text(
                                                   '${_data['server_data'][index]['name']}',
                                                   style: TextStyle(
-                                                      fontSize: 18,
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                      color: Colors.black54),
+                                                    fontWeight: FontWeight.bold,
+                                                  ),
                                                 ),
                                               ),
                                             ],
@@ -501,16 +513,18 @@ class _PendingAppointmentScreenState extends State<PendingAppointmentScreen> {
                                             cells: <DataCell>[
                                               DataCell(
                                                 Text(
-                                                    'Hospital/Clinic Address:'),
+                                                  'Hospital/Clinic Address:',
+                                                  style: TextStyle(
+                                                    fontWeight: FontWeight.bold,
+                                                  ),
+                                                ),
                                               ),
                                               DataCell(
                                                 Text(
                                                   '${_data['server_data'][index]['address']}',
                                                   style: TextStyle(
-                                                      fontSize: 18,
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                      color: Colors.black54),
+                                                    fontWeight: FontWeight.bold,
+                                                  ),
                                                 ),
                                               ),
                                             ],

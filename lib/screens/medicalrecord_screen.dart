@@ -19,13 +19,13 @@ class _MedicalRecordState extends State<MedicalRecordScreen> {
   SharedPreferences userdata;
   var id;
   bool _isInit = true;
-  void didchangeDependencies() async {
+  void didChangeDependencies() async {
     if (_isInit) {
       userdata = await SharedPreferences.getInstance();
       id = userdata.getString('id');
       print('iddddd:$id');
+      super.didChangeDependencies();
     }
-    super.didChangeDependencies();
   }
 
   bool _editMode = false;
@@ -53,6 +53,10 @@ class _MedicalRecordState extends State<MedicalRecordScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.indigo.shade900,
+        title: Text('Medical Record'),
+      ),
       body: Column(
         children: <Widget>[
           Column(
@@ -138,7 +142,7 @@ class _MedicalRecordState extends State<MedicalRecordScreen> {
                 padding: const EdgeInsets.only(left: 100, top: 10),
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(primary: Colors.indigo),
-                  child: Text(' تصویر اپ لوڈ کریں'),
+                  child: Text(' تصویر اپ لوڈ کریں/upload picture'),
                   onPressed: () async {
                     print(id);
                     await showModalBottomSheet(

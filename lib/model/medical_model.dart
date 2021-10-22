@@ -13,7 +13,6 @@ class MedicalModal {
     );
   }
   Map<String, dynamic> toJsonAdd() {
-    print('Model');
     return {
       'imageBase64': imageBase64,
       'imagename': imagename,

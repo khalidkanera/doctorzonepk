@@ -42,15 +42,6 @@ class _DoctorsProfileScreen2State extends State<DoctorsProfileScreen2> {
       // print('{Sid: $_sid}');
       if (response.statusCode == 200) {
         _comingData = json.decode(response.body);
-        // print(response.body);
-        // List<DoctorPersonalData> data = datafromjson(
-        //   response.body,
-        // );
-        // if (response.body.isNotEmpty) {
-        //   return data.toList();
-        // } else {
-        //   // print("Error");
-        // }
       }
     } catch (e) {
       ShowExceptionDialogBox.showExceptionDialog(context);
@@ -95,18 +86,23 @@ class _DoctorsProfileScreen2State extends State<DoctorsProfileScreen2> {
       body: _loading
           ? Center(child: CircularProgressIndicator())
           : (_comingData['doctors'].length == 0)
-              ? Container(
-                  height: 212,
-                  margin: const EdgeInsets.only(top: 100, bottom: 50),
-                  decoration: BoxDecoration(
-                    image: DecorationImage(
-                      image: AssetImage(
-                        'asset/norec.png',
+              ? Column(
+                  children: [
+                    Container(
+                      height: 212,
+                      margin: const EdgeInsets.only(top: 100, bottom: 50),
+                      decoration: BoxDecoration(
+                        image: DecorationImage(
+                          image: AssetImage(
+                            'asset/norec.png',
+                          ),
+                          fit: BoxFit.fitHeight,
+                        ),
                       ),
-                      fit: BoxFit.fitHeight,
+                      // child: Text('No Doctor Available'),
                     ),
-                  ),
-                  // child: Text('No Doctor Available'),
+                    Text('No Record Found\nکوئی ریکارڈ نہیں ملا')
+                  ],
                 )
               : (_loading && _comingData['doctors'].isNotEmpty)
                   ? Center(
@@ -136,18 +132,10 @@ class _DoctorsProfileScreen2State extends State<DoctorsProfileScreen2> {
                                             shape: BoxShape.circle,
                                             color: Colors.white,
                                             image: DecorationImage(
-                                                image:
-                                                    // ? Container(
-                                                    //     child:
-                                                    //         CircularProgressIndicator(
-                                                    //       backgroundColor:
-                                                    //           Colors
-                                                    //               .amberAccent,
-                                                    //     ),
-                                                    //   )
-                                                    NetworkImage(
-                                              '${Ip.serverip3}/doctorimg_upload/${_comingData['doctors'][index]['persoanldata'][0]['pd_pic']}',
-                                            )),
+                                              image: NetworkImage(
+                                                '${Ip.serverip3}/doctorimg_upload/${_comingData['doctors'][index]['persoanldata'][0]['pd_pic']}',
+                                              ),
+                                            ),
                                           ),
                                         ),
                                         Column(
@@ -159,12 +147,7 @@ class _DoctorsProfileScreen2State extends State<DoctorsProfileScreen2> {
                                             Row(
                                               children: [
                                                 Text(
-                                                  _comingData['doctors'][index]
-                                                                  ['title'][0]
-                                                              ['title'] ==
-                                                          'None'
-                                                      ? 'Dr. ${_comingData['doctors'][index]['persoanldata'][0]['pd_full_name']}'
-                                                      : '${_comingData['doctors'][index]['title'][0]['title']} ${_comingData['doctors'][index]['persoanldata'][0]['pd_full_name']}',
+                                                  '${_comingData['doctors'][index]['persoanldata'][0]['pd_full_name']}',
                                                 ),
                                               ],
                                             ),

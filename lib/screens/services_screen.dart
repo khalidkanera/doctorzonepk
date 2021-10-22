@@ -64,6 +64,34 @@ class _ServicesScreenState extends State<ServicesScreen> {
     PreviousMedicalRecordScreen()
   ];
   var _playerID;
+
+  @override
+  void didChangeDependencies() async {
+    try {
+      if (_isInit) {
+        final data =
+            ModalRoute.of(context).settings.arguments as Map<String, dynamic>;
+        if (data != null) {
+          _comingIndex = data['index'];
+          _currentindex = _comingIndex;
+        }
+        await initial();
+        await getPatientData();
+        await getCities();
+        await getServices();
+        await gettotaldoctornumber();
+
+        await configOneSignal();
+        await getPlayerID();
+        await registerDevice();
+      }
+      _isInit = false;
+      super.didChangeDependencies();
+    } catch (e) {
+      print(e);
+    }
+  }
+
   Future<void> configOneSignal() async {
     if (!mounted) {
       return;
@@ -82,7 +110,7 @@ class _ServicesScreenState extends State<ServicesScreen> {
         print(notification.jsonRepresentation().replaceAll('\\n', '\n'));
       });
 
-      OneSignal.shared.setNotificationOpenedHandler((openedResult) {
+      OneSignal.shared.setNotificationOpenedHandler((openedResult) async {
         print('Notification Opened');
       });
     } catch (e) {
@@ -137,33 +165,6 @@ class _ServicesScreenState extends State<ServicesScreen> {
     }
   }
 
-  @override
-  void didChangeDependencies() async {
-    try {
-      if (_isInit) {
-        final data =
-            ModalRoute.of(context).settings.arguments as Map<String, dynamic>;
-        if (data != null) {
-          _comingIndex = data['index'];
-          _currentindex = _comingIndex;
-        }
-        await initial();
-        await getPatientData();
-        await getCities();
-        await getServices();
-        await gettotaldoctornumber();
-
-        await configOneSignal();
-        await getPlayerID();
-        await registerDevice();
-      }
-      _isInit = false;
-      super.didChangeDependencies();
-    } catch (e) {
-      print(e);
-    }
-  }
-
   Future gettotaldoctornumber() async {
     try {
       final response = await http.get(urltotaldctor);
@@ -191,6 +192,7 @@ class _ServicesScreenState extends State<ServicesScreen> {
       _email = _allpatientDat.email;
       _name = _allpatientDat.full_name;
       _pic2 = _allpatientDat.pic;
+      print("pic:$_pic2");
     } catch (e) {
       print(e);
     }
@@ -275,10 +277,19 @@ class _ServicesScreenState extends State<ServicesScreen> {
               Center(
                 child: UserAccountsDrawerHeader(
                   currentAccountPicture: CircleAvatar(
-                    radius: 100,
-                    backgroundImage: NetworkImage('$_pic2', scale: 1),
                     backgroundColor: Colors.white,
+                    radius: 50,
                   ),
+                  // currentAccountPicture: CircleAvatar(
+                  //   radius: 100,
+                  //   child: (_pic2 == null || _pic2 == 'null')
+                  //       ? Image.asset(
+                  //           'asset/user.png',
+                  //           scale: 1,
+                  //         )
+                  //       : Image.network(_pic2),
+                  //   backgroundColor: Colors.white,
+                  // ),
                   accountEmail: Text(
                     _name == null ? "" : _name.toString(),
                     style: TextStyle(
@@ -513,15 +524,11 @@ class _ServicesScreenState extends State<ServicesScreen> {
                             ),
 
                             Padding(
-                              padding: const EdgeInsets.only(
-                                left: 10.0,
-                                right: 10,
-                              ),
+                              padding: const EdgeInsets.only(left: 5),
                               child: DropdownButtonHideUnderline(
                                 child: DropdownButton<String>(
                                   style: TextStyle(
                                     color: Colors.black,
-                                    fontSize: 18,
                                   ),
                                   isExpanded: false,
                                   items: _cities == null

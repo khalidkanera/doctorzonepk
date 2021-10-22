@@ -41,14 +41,14 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
       setState(() {
         _clinicname = _data['clinicData']['clinic'];
         uID = _data['clinicData']['docid'];
-        _title = _data['dtitle'];
-        print(_title);
+        // _title = _data['dtitle'];
+        // print(_title);
 
+        print('uid:$uID');
         _clinicid = _data['clinicData']['clinicids'];
         print('Clinicididchangedaapontment: $_clinicid');
 
         // _schdule = _data['schedule'];
-        // print(uID);
         // print(_clinicid);
         _selectedDate = DateFormat('yyyy-MM-dd').format(DateTime.now());
         final dayNumber = DateTime.now().weekday;
@@ -142,6 +142,7 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
         print(' date.now:{$_selectedValue}');
       });
       await getClinic();
+
       super.didChangeDependencies();
       setState(() {
         _isloading = false;
@@ -151,24 +152,21 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
     }
   }
 
-  @override
-  void initState() {
-    super.initState();
-  }
-
   Future getClinic() async {
+    print('fukjsnksn');
     try {
       final _clinics = await AppointmentServices().fetch(uID);
       setState(() {
         _doctors = _clinics;
-        _fee = _doctors[0]['appoitmentfee'];
-
+        //  _fee = _doctors[0]['appoitmentfee'];
+        print(_clinics);
         print('Doctor clinic:{$_doctors}');
         print('fee:{$_fee}');
         _isloading = false;
       });
     } catch (e) {
-      ShowExceptionDialogBox.showExceptionDialog(context);
+      print(e);
+      // ShowExceptionDialogBox.showExceptionDialog(context);
     }
   }
 
@@ -196,10 +194,11 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
                           Padding(
                             padding: const EdgeInsets.only(bottom: 8),
                             child: Container(
+                              padding: EdgeInsets.only(bottom: 10),
                               height: 100,
                               width: 100,
                               margin: const EdgeInsets.only(
-                                  top: 10, left: 8, right: 30),
+                                  top: 10, left: 5, right: 16),
                               decoration: BoxDecoration(
                                 shape: BoxShape.circle,
                                 color: Colors.white,
@@ -221,26 +220,24 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Padding(
-                                padding: const EdgeInsets.only(bottom: 15.0),
+                                padding:
+                                    const EdgeInsets.only(bottom: 0.0, top: 10),
                                 child: Text(
-                                  _title == 'None'
-                                      ? 'Dr. ' + _doctors[0]['pd_full_name']
-                                      : _title + _doctors[0]['pd_full_name'],
+                                  _doctors[0]['pd_full_name'].toString(),
                                   style: TextStyle(
-                                    fontSize: 18,
                                     fontWeight: FontWeight.bold,
                                   ),
-                                  overflow: TextOverflow.clip,
+                                  softWrap: true,
+                                  maxLines: 2,
                                 ),
                               ),
                               Padding(
-                                padding: const EdgeInsets.only(bottom: 5),
+                                padding:
+                                    const EdgeInsets.only(bottom: 0.0, top: 5),
                                 child: Text(
                                   'Fee Rs.' +
                                       _doctors[0]['appoitmentfee'].toString(),
-                                  style: TextStyle(
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.bold),
+                                  style: TextStyle(fontWeight: FontWeight.bold),
                                 ),
                               ),
                               Padding(
@@ -248,7 +245,6 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
                                 child: Text(
                                   'Appointment Duration',
                                   style: TextStyle(
-                                      fontSize: 16,
                                       color: Colors.teal,
                                       fontWeight: FontWeight.bold),
                                 ),
