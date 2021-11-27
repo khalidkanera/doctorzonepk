@@ -34,8 +34,11 @@ class ServicesScreen extends StatefulWidget {
 }
 
 class _ServicesScreenState extends State<ServicesScreen> {
+  GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey();
   final String urltotaldctor = '${IP.serverip}/totalregisterdoctor.php';
   SharedPreferences _logindata;
+
+  //bool _flexibleUpdateAvailable = false;
   var _uID;
   var _total;
   var _pic2;
@@ -89,6 +92,13 @@ class _ServicesScreenState extends State<ServicesScreen> {
       super.didChangeDependencies();
     } catch (e) {
       print(e);
+    }
+  }
+
+  void showSnack(String text) {
+    if (_scaffoldKey.currentContext != null) {
+      ScaffoldMessenger.of(_scaffoldKey.currentContext)
+          .showSnackBar(SnackBar(content: Text(text)));
     }
   }
 
@@ -227,6 +237,7 @@ class _ServicesScreenState extends State<ServicesScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldKey,
       appBar: AppBar(
         backgroundColor: Colors.indigo.shade900,
         elevation: 0,
@@ -277,19 +288,11 @@ class _ServicesScreenState extends State<ServicesScreen> {
               Center(
                 child: UserAccountsDrawerHeader(
                   currentAccountPicture: CircleAvatar(
+                    backgroundImage:
+                        NetworkImage('${IP.serverip}/uploads/$_pic2', scale: 2),
                     backgroundColor: Colors.white,
                     radius: 50,
                   ),
-                  // currentAccountPicture: CircleAvatar(
-                  //   radius: 100,
-                  //   child: (_pic2 == null || _pic2 == 'null')
-                  //       ? Image.asset(
-                  //           'asset/user.png',
-                  //           scale: 1,
-                  //         )
-                  //       : Image.network(_pic2),
-                  //   backgroundColor: Colors.white,
-                  // ),
                   accountEmail: Text(
                     _name == null ? "" : _name.toString(),
                     style: TextStyle(

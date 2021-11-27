@@ -1,8 +1,11 @@
 import 'dart:async';
 import 'dart:io';
 
+import 'package:doctorzone/screens/chat_screen.dart';
 import 'package:doctorzone/screens/history_appointment_screen.dart';
 import 'package:doctorzone/screens/inbox_screen.dart';
+import 'package:doctorzone/screens/reply%20screen.dart';
+import 'package:new_version/new_version.dart';
 import './screens/getappointment_screen.dart';
 import './screens/previous_medicalrecord_screen.dart';
 import 'package:flutter/services.dart';
@@ -47,7 +50,44 @@ class _MyAppState extends State<MyApp> {
 
   bool _isLoading = true;
   bool _isInit = true;
-  Future didChangeDependencies() async {
+
+  void initState() {
+    super.initState();
+
+    // Instantiate NewVersion manager object (Using GCP Console app as example)
+    final newVersion = NewVersion(
+      context: context,
+      //iOSId: 'com.google.Vespa',
+      androidId: 'com.doctorzone.doctorzone',
+    );
+
+    // You can let the plugin handle fetching the status and showing a dialog,
+    // or you can fetch the status and display your own dialog, or no dialog.
+    const simpleBehavior = true;
+
+    if (simpleBehavior) {
+      basicStatusCheck(newVersion);
+    } else {
+      advancedStatusCheck(newVersion);
+    }
+  }
+
+  basicStatusCheck(NewVersion newVersion) {
+    newVersion.showAlertIfNecessary();
+  }
+
+  advancedStatusCheck(NewVersion newVersion) async {
+    final status = await newVersion.getVersionStatus();
+    if (status != null) {
+      debugPrint(status.appStoreLink);
+      debugPrint(status.localVersion);
+      debugPrint(status.storeVersion);
+      debugPrint(status.canUpdate.toString());
+      newVersion.showAlertIfNecessary();
+    }
+  }
+
+  void didChangeDependencies() async {
     if (_isInit) {
       await initial();
     }
@@ -92,6 +132,7 @@ class _MyAppState extends State<MyApp> {
               ? ServicesScreen()
               : SignInScreen(),
       routes: {
+        ChatScreen.routeName: (_) => ChatScreen(),
         SignInScreen.routeName: (_) => SignInScreen(),
         SignupScreen.routeName: (_) => SignupScreen(),
         ServicesScreen.routeName: (_) => ServicesScreen(),
@@ -111,6 +152,7 @@ class _MyAppState extends State<MyApp> {
             PreviousMedicalRecordScreen(),
         InboxScreen.routeName: (_) => InboxScreen(),
         HistoryScreen.routeName: (_) => HistoryScreen(),
+        ReplyScreen.routeName: (_) => ReplyScreen(),
       },
     );
   }

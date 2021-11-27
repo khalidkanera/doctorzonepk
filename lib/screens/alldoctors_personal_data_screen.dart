@@ -188,15 +188,28 @@ class _DoctorsProfileScreen2State extends State<DoctorsProfileScreen2> {
                                             Row(
                                               children: [
                                                 Padding(
-                                                  padding:
-                                                      const EdgeInsets.only(
-                                                          top: 5),
-                                                  child: Text(
-                                                    'M.B.B.S , F.C.P.S',
-                                                    style: TextStyle(
-                                                        color: Colors.pink),
-                                                  ),
-                                                ),
+                                                    padding:
+                                                        const EdgeInsets.only(
+                                                            top: 5),
+                                                    child: _comingData['doctors']
+                                                                        [index][
+                                                                    'degreename']
+                                                                .length ==
+                                                            1
+                                                        ? Text(
+                                                            '${_comingData['doctors'][index]['degreename'][0]['degree']},',
+                                                            style: TextStyle(),
+                                                          )
+                                                        : _comingData['doctors']
+                                                                            [
+                                                                            index]
+                                                                        [
+                                                                        'degreename']
+                                                                    .length ==
+                                                                2
+                                                            ? Text('${_comingData['doctors'][index]['degreename'][0]['degree']},' +
+                                                                '${_comingData['doctors'][index]['degreename'][1]['degree']},')
+                                                            : '${_comingData['doctors'][index]['degreename'][2]['degree']}'),
                                               ],
                                             ),
                                             Row(
@@ -208,7 +221,7 @@ class _DoctorsProfileScreen2State extends State<DoctorsProfileScreen2> {
                                                   child: Text(
                                                     'PMDC # ${_comingData['doctors'][index]['persoanldata'][0]['pd_PMDC']}',
                                                     style: TextStyle(
-                                                        color: Colors.pink),
+                                                        color: Colors.teal),
                                                   ),
                                                 ),
                                               ],
