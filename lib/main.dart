@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:doctorzone/screens/chat_screen.dart';
 import 'package:doctorzone/screens/history_appointment_screen.dart';
 import 'package:doctorzone/screens/inbox_screen.dart';
+import 'package:doctorzone/screens/permission_screen.dart';
 import 'package:doctorzone/screens/reply%20screen.dart';
 import 'package:new_version/new_version.dart';
 import './screens/getappointment_screen.dart';
@@ -128,9 +129,11 @@ class _MyAppState extends State<MyApp> {
       debugShowCheckedModeBanner: false,
       home: _isLoading == true
           ? SplashScreen()
-          : _uID != null
-              ? ServicesScreen()
+          : _uID == null
+              ? PermissionScreen()
               : SignInScreen(),
+      // ? ServicesScreen()
+      // : SignInScreen(),
       routes: {
         ChatScreen.routeName: (_) => ChatScreen(),
         SignInScreen.routeName: (_) => SignInScreen(),
